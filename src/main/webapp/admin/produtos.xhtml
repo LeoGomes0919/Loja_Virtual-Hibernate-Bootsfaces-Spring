@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tema/dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="centro">
+
+		<h:head>
+			<title>Produtos | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+		</h:head>
+
+		<p:growl id="msgs" />
+		<b:panel style="margin-left: 18%;" collapsible="false" id="panel">
+			<f:facet name="heading">
+				<p:outputLabel value="Formulário" style="font-size: 14pt;" />
+			</f:facet>
+			<nav>
+				<b:panelGrid id="panelGrid" colSpans="1,11" size="md">
+					<h:outputText value="Nome" />
+					<b:inputText value="#{produtoBean.produto.nome}" maxlength="30" span="4"/>
+
+					<h:outputText value="Preço" />
+					<b:inputText value="#{produtoBean.produto.preco}" span="2"
+						converterMessage="O valor do campo 'Preço' é inválido"
+						validatorMessage="Informe um valor entre 0,50 e 9999,99 para o campo 'Preço'">
+						<f:validateDoubleRange minimum="0.50" maximum="9999.99" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</b:inputText>
+
+					<h:outputText value="Quantidade" />
+					<b:inputText value="#{produtoBean.produto.quantidade}" span="2"
+						maxlength="5"
+						converterMessage="O valor do campo 'Qauntidade' é inválido"
+						validatorMessage="Informe um valor entre 0 e 1000 para o campo 'Quantidade'">
+						<f:validateLongRange minimum="0" maximum="1000" />
+					</b:inputText>
+
+					<h:outputText value="Fabricante" />
+					<b:selectOneMenu value="#{produtoBean.produto.fabricante}" span="3"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="-- Selecione um fabricante"
+							noSelectionOption="true" itemValue="" />
+						<f:selectItems value="#{fabricanteBean.fabricantes}" var="f"
+							itemValue="#{f}" itemLabel="#{f.nome}" />
+					</b:selectOneMenu>
+
+					<h:outputText value="Categoria" />
+					<b:selectOneMenu value="#{produtoBean.produto.categoria}"
+						converter="omnifaces.SelectItemsConverter" span="3">
+						<f:selectItem itemLabel="-- Selecione uma categoria"
+							noSelectionOption="true" itemValue="" />
+						<f:selectItems value="#{categoriaBean.categorias}" var="c"
+							itemValue="#{c}" itemLabel="#{c.nome}" />
+					</b:selectOneMenu>
+
+					<h:outputText value="Descrição" />
+					<b:inputTextarea style="height: 1.5cm;"
+						value="#{produtoBean.produto.descircao}" maxlength="100" span="4"/>
+
+					<b:commandButton value="Salvar" look="success"
+						style="margin-left: 2.9cm;"
+						update="msgs, panel2, tbl, panel, panelGrid"
+						action="#{produtoBean.actionSalvar}"/>
+				</b:panelGrid>
+
+			</nav>
+		</b:panel>
+		<b:panel style="margin-left: 18%;" id="panel2" collapsible="false">
+			<f:facet name="heading">
+				<p:outputLabel value="Lista de Produtos" style="font-size: 14pt;" />
+			</f:facet>
+			<b:dataTable fixedHeader="true" scroll-size="400px"
+				value="#{produtoBean.produtos}" var="produto" scroll-x="false"
+				responsive="true" page-length="2" page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{produto.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nome">
+					<h:outputText value="#{produto.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Preço">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Quantidade">
+					<h:outputText value="#{produto.quantidade}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Fabricante">
+					<h:outputText value="#{produto.fabricante.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Categoria">
+					<h:outputText value="#{produto.categoria.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Descrição">
+					<h:outputText value="#{produto.descircao}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Editar">
+					<b:commandButton title="Editar" ajax="true"
+						update="@form:panel:panelGrid"
+						actionListener="#{produtoBean.actionEditar}">
+						<i class="fa fa-edit"></i>
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Excluir">
+					<b:commandButton styleClass="btn btn-default"
+						action="#{produtoBean.actionExcluir}">
+						<i class="fa fa-trash-o"></i>
+						<f:setPropertyActionListener value="#{produto}"
+							target="#{produtoBean.produto}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</b:commandButton>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+	</ui:define>
+</ui:composition>

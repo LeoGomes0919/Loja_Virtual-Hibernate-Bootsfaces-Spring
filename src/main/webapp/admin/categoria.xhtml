@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tema/dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="centro">
+		<h:head>
+			<title>Categorias | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+		</h:head>
+		<p:growl id="msgs" />
+		<b:panel style="margin-left: 18%; height: 6cm;" collapsible="false"
+			id="panel">
+			<f:facet name="heading">
+				<p:outputLabel value="Formulário" style="font-size: 14pt;" />
+			</f:facet>
+			<nav>
+				<h:panelGrid columns="2" id="panelGrid">
+					<h:outputText value="Nome" />
+					<b:inputText value="#{categoriaBean.categoria.nome}" maxlength="30" />
+
+					<h:outputText value="Descrição" />
+					<b:inputTextarea style="height: 1.5cm;"
+						value="#{categoriaBean.categoria.descricao}" maxlength="100" />
+				</h:panelGrid>
+				<b:commandButton value="Salvar" look="success"
+					style="margin-left: 1.6cm;"
+					update="msgs, panel2, tbl, panel, panelGrid"
+					action="#{categoriaBean.actionSalvar}" />
+			</nav>
+		</b:panel>
+		<b:panel style="margin-left: 18%;" id="panel2" collapsible="false">
+			<f:facet name="heading">
+				<p:outputLabel value="Lista de Categorias" style="font-size: 14pt;" />
+			</f:facet>
+			<b:dataTable fixedHeader="true" scroll-size="400px"
+				value="#{categoriaBean.categorias}" var="categorias"
+				scroll-x="false" responsive="true" page-length="2"
+				page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{categorias.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nome">
+					<h:outputText value="#{categorias.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Descrição">
+					<h:outputText value="#{categorias.descricao}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Editar">
+					<b:commandButton title="Editar" ajax="true" update="@form:panel">
+						<i class="fa fa-edit"></i>
+						<f:setPropertyActionListener value="#{categorias}"
+							target="#{categoriaBean.categoria}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Excluir">
+					<b:commandButton styleClass="btn btn-default"
+						oncomplete="$('.modalPseudoClass').modal();" update="@form:tbl">
+						<i class="fa fa-trash-o"></i>
+						<f:setPropertyActionListener value="#{categorias}"
+							target="#{categoriaBean.categoria}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+		<b:modal id="amodal" title="Confirmação" styleClass="modalPseudoClass"
+			style="text-align: left;">
+			<label style="font-size: 13pt;">Deseja <b style="color: red;">Excluir</b>
+				essa Categoria?
+			</label>
+			<f:facet name="footer">
+				<h:commandButton action="#{categoriaBean.actionExcluir}" ajax="true"
+					update="@form:panel2:tbl:amodal:msgs" styleClass="btn btn-danger"
+					value="Sim" />
+
+				<h:commandButton value="Não" styleClass="btn btn-warning" />
+			</f:facet>
+		</b:modal>
+	</ui:define>
+</ui:composition>

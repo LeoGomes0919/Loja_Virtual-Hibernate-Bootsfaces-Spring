@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tema/dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+	<ui:define name="centro">
+		<h:head>
+			<title>Pessoas | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<link rel="stylesheet"
+				href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<script
+				src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		</h:head>
+
+		<p:growl id="msgs" />
+		<b:panel style="margin-left: 18%;" id="panel2" collapsible="false">
+			<f:facet name="heading">
+				<p:outputLabel value="Pessoa - Listagem" style="font-size: 14pt;" />
+			</f:facet>
+			<b:dataTable fixedHeader="true" scroll-size="400px"
+				value="#{pesssoaBean.pessoas}" var="p" scroll-x="false"
+				responsive="true" page-length="2" page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{p.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nome">
+					<h:outputText value="#{p.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="CPF">
+					<h:outputText value="#{p.cpf}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="RG">
+					<h:outputText value="#{p.rg}" />
+				</b:dataTableColumn>
+				
+				<b:dataTableColumn label="Data Nasc.">
+					<h:outputText value="#{p.dataNasc}">
+						<f:convertDateTime locale="pt_BR"/>
+					</h:outputText>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Rua">
+					<h:outputText value="#{p.rua}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Numero">
+					<h:outputText value="#{p.numero}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Bairro">
+					<h:outputText value="#{p.bairro}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="CEP">
+					<h:outputText value="#{p.cep}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Telefone">
+					<h:outputText value="#{p.telefone}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Celular">
+					<h:outputText value="#{p.celular}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="E-mail">
+					<h:outputText value="#{p.email}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Cidade">
+					<h:outputText value="#{p.cidade.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Excluir">
+					<b:commandButton action="#{pesssoaBean.actionExcluir}" update="@form:msgs">
+						<i class="fa fa-trash-o"></i>
+						<f:setPropertyActionListener value="#{p}"
+							target="#{pesssoaBean.pessoa}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+	</ui:define>
+</ui:composition>
+

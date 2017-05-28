@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tema/dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="centro">
+		<h:head>
+			<title>Usuarios | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+		</h:head>
+
+		<p:growl id="msgs" />
+		<b:panel style="margin-left: 18%;" id="panel2" collapsible="false">
+			<f:facet name="heading">
+				<p:outputLabel value="Usuários - Listagem" style="font-size: 14pt;" />
+			</f:facet>
+			<b:dataTable fixedHeader="true" scroll-size="400px" scroll-x="false"
+				value="#{usuarioBean.usuarios}" var="u" responsive="true"
+				page-length="2" page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl" class="">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{u.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Ativo">
+					<h:outputText value="#{u.ativoFormatado}" />
+					<b:selectBooleanCheckbox value="#{u.ativo}" style="margin-left: 1cm;"/>
+					<b:commandButton value="Validar" style="margin-left: 1cm;"
+						look="success" update="@form:msgs" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nome Usuário">
+					<h:outputText value="#{u.nomeUsuario}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Tipo">
+					<h:outputText value="#{u.tipoFormatado}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Pessoa">
+					<h:outputText value="#{u.pessoa.nome}" />
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+	</ui:define>
+</ui:composition>
+

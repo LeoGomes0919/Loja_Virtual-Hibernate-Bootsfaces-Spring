@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<h:outputStylesheet library="css" name="dashboard.css" />
+	<style>
+.flex-container {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-flow: row wrap;
+	flex-flow: row wrap;
+}
+
+.flex-container>* {
+	-webkit-flex: 1 100%;
+	flex: 1 100%;
+}
+
+.article1 {
+	text-align: center;
+	border: none;
+	margin-left: 6.7cm;
+	border-style: none;
+}
+
+@media all and (min-width: 767px) {
+	.nav-side-menu {
+		text-align: left;
+		-webkit-flex: 1 auto;
+		flex: 1 auto;
+		-webkit-order: 1;
+		order: 1;
+	}
+	.article1 {
+		-webkit-flex: 5 0px;
+		flex: 5 0px;
+		-webkit-order: 2;
+		order: 2;
+		border: none;
+		border-style: none;
+	}
+}
+</style>
+</h:head>
+<h:body>
+	<div class="flex-container">
+		<div class="nav-side-menu">
+			<div class="brand">Área Administrativa</div>
+			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+				data-target="#menu-content"></i>
+
+			<h:form>
+				<div class="menu-list">
+
+					<ul id="menu-content" class="menu-content collapse out">
+						<li><i class="fa fa-shopping-cart fa-lg"></i> Loja</li>
+
+						<li data-toggle="collapse" data-target="#fabrica"><i
+							class="fa fa-truck fa-lg"></i>&nbsp; <h:commandLink
+								value="Fabricante" /><span class="arrow"></span></li>
+						<ul class="sub-menu collapse" id="fabrica">
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Lista e Cadastro" /></li>
+						</ul>
+
+						<li data-toggle="collapse" data-target="#products"><i
+							class="fa fa-gift fa-lg"></i>&nbsp; <h:commandLink
+								value="Produtos" /><span class="arrow"></span></li>
+						<ul class="sub-menu collapse" id="products">
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Lista e Cadastro" /></li>
+							<li><i class="fa fa-money"></i>&nbsp; <h:commandLink
+									action="#" value="Pagamentos" /></li>
+						</ul>
+
+						<li data-toggle="collapse" data-target="#categoria"><i
+							class="fa fa-bars fa-lg"></i>&nbsp; <h:commandLink
+								value="Categoria" /><span class="arrow"></span></li>
+						<ul class="sub-menu collapse" id="categoria">
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Lista e Cadastro" action="#" /></li>
+						</ul>
+
+						<li data-toggle="collapse" data-target="#cliente"
+							class="collapsed"><i class="fa fa-user fa-lg"></i>&nbsp;<h:commandLink
+								value="Pessoas" /><span class="arrow"></span></li>
+						<ul class="sub-menu collapse" id="cliente">
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Lista de Pessoas" /></li>
+							<li><i class="fa fa-users"></i>&nbsp;<h:commandLink
+									value="Lista de Usuários" /></li>
+						</ul>
+
+						<li><i class="glyphicon glyphicon-log-out"></i>&nbsp;<h:commandLink
+								value="Logout" /></li>
+					</ul>
+				</div>
+			</h:form>
+		</div>
+	</div>
+	<h:form>
+		<ui:insert name="centro" />
+	</h:form>
+</h:body>
+</html>
