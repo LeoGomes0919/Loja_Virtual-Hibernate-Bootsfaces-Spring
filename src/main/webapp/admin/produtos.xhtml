@@ -10,22 +10,27 @@
 		<h:head>
 			<title>Produtos | Administrativo</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<h:outputScript library="js" name="formata_campos.js" />
+			<h:outputScript library="js" name="formatar_moedas.js" />
 		</h:head>
 
 		<p:growl id="msgs" />
 		<b:panel style="margin-left: 18%;" collapsible="false" id="panel">
 			<f:facet name="heading">
-				<p:outputLabel value="Formulário" style="font-size: 14pt;" />
+				<h:outputLabel value="Formulário" style="font-size: 16pt;" />
 			</f:facet>
 			<nav>
 				<b:panelGrid id="panelGrid" colSpans="1,11" size="md">
 					<h:outputText value="Nome" />
-					<b:inputText value="#{produtoBean.produto.nome}" maxlength="30" span="4"/>
+					<b:inputText value="#{produtoBean.produto.nome}" maxlength="30"
+						span="4" />
 
 					<h:outputText value="Preço" />
 					<b:inputText value="#{produtoBean.produto.preco}" span="2"
 						converterMessage="O valor do campo 'Preço' é inválido"
-						validatorMessage="Informe um valor entre 0,50 e 9999,99 para o campo 'Preço'">
+						validatorMessage="Informe um valor entre 0,50 e 9999,99 para o campo 'Preço'"
+						onkeypress="return formatar_moeda(this,'.',',',event);"
+						maxlength="12">
 						<f:validateDoubleRange minimum="0.50" maximum="9999.99" />
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</b:inputText>
@@ -41,7 +46,7 @@
 					<h:outputText value="Fabricante" />
 					<b:selectOneMenu value="#{produtoBean.produto.fabricante}" span="3"
 						converter="omnifaces.SelectItemsConverter">
-						<f:selectItem itemLabel="-- Selecione um fabricante"
+						<f:selectItem itemLabel="Selecione um fabricante"
 							noSelectionOption="true" itemValue="" />
 						<f:selectItems value="#{fabricanteBean.fabricantes}" var="f"
 							itemValue="#{f}" itemLabel="#{f.nome}" />
@@ -50,7 +55,7 @@
 					<h:outputText value="Categoria" />
 					<b:selectOneMenu value="#{produtoBean.produto.categoria}"
 						converter="omnifaces.SelectItemsConverter" span="3">
-						<f:selectItem itemLabel="-- Selecione uma categoria"
+						<f:selectItem itemLabel="Selecione uma categoria"
 							noSelectionOption="true" itemValue="" />
 						<f:selectItems value="#{categoriaBean.categorias}" var="c"
 							itemValue="#{c}" itemLabel="#{c.nome}" />
@@ -58,25 +63,31 @@
 
 					<h:outputText value="Descrição" />
 					<b:inputTextarea style="height: 1.5cm;"
-						value="#{produtoBean.produto.descircao}" maxlength="100" span="4"/>
+						value="#{produtoBean.produto.descircao}" maxlength="100" span="4" />
+
+					<h:outputText value="Foto" />
+					<p:fileUpload mode="advanced"
+						style="margin-left: 0.4cm; width: 13cm;"
+						fileUploadListener="#{produtoBean.upload}" label="Selecionar"
+						uploadLabel="Enviar" cancelLabel="Cancelar" update="msgs" />
 
 					<b:commandButton value="Salvar" look="success"
-						style="margin-left: 2.9cm;"
-						update="msgs, panel2, tbl, panel, panelGrid"
-						action="#{produtoBean.actionSalvar}"/>
+						style="margin-left: 2.9cm; margin-top: 0.2cm;"
+						update="msgs, panel2, panel, tbl"
+						action="#{produtoBean.actionSalvar}" />
 				</b:panelGrid>
 
 			</nav>
 		</b:panel>
 		<b:panel style="margin-left: 18%;" id="panel2" collapsible="false">
 			<f:facet name="heading">
-				<p:outputLabel value="Lista de Produtos" style="font-size: 14pt;" />
+				<h:outputLabel value="Lista de Produtos" style="font-size: 14pt;" />
 			</f:facet>
 			<b:dataTable fixedHeader="true" scroll-size="400px"
 				value="#{produtoBean.produtos}" var="produto" scroll-x="false"
 				responsive="true" page-length="2" page-length-menu="2,5,10,15,20"
 				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-				id="tbl">
+				id="tbl" >
 
 				<b:dataTableColumn label="ID">
 					<h:outputText value="#{produto.id}" />

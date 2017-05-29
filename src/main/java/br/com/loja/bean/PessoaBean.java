@@ -35,11 +35,9 @@ public class PessoaBean implements Serializable {
 		try {
 			pessoa = new Pessoa();
 			EstadoDAO estadoDAO = new EstadoDAO();
-			CidadeDAO cidadeDAO = new CidadeDAO();
 			pessoas = pessoaDAO.listar();
 
 			estados = estadoDAO.listar("nome");
-			cidades = cidadeDAO.listar();
 			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");

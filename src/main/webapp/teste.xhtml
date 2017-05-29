@@ -12,6 +12,10 @@
 </h:head>
 
 <h:body>
-	
+	<h:form>
+		<h:outputText value="Foto" />
+		<p:fileUpload mode="advanced" style="margin-left: 0.5cm; " auto="true"
+			fileUploadListener="#{produtoBean.upload}" />
+	</h:form>
 </h:body>
 </html>

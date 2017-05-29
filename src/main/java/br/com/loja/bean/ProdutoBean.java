@@ -1,6 +1,11 @@
 package br.com.loja.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +14,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.loja.dao.CategoriaDAO;
 import br.com.loja.dao.FabricanteDAO;
@@ -32,12 +39,17 @@ public class ProdutoBean implements Serializable {
 
 	public void actionSalvar() {
 		try {
-			produtoDao.merge(produto);
+			Produto produtoRetorno = produtoDao.merge(produto);
+			Path origem = Paths.get(produto.getCaminho());
+			Path destino = Paths
+					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+							+ produtoRetorno.getId() + ".png");
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			actionInserir();
 			produtos = produtoDao.listar();
 
 			Messages.addGlobalInfo("Produto Salvo com Sucesso!");
-		} catch (RuntimeException e) {
+		} catch (RuntimeException | IOException e) {
 			Messages.addGlobalError("Erro ao tentar salvar o produto");
 			e.printStackTrace();
 		}
@@ -48,7 +60,7 @@ public class ProdutoBean implements Serializable {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 			FabricanteDAO fab = new FabricanteDAO();
-			fabricantes = fab.listar();
+			fabricantes = fab.listar("nome");
 
 			CategoriaDAO cat = new CategoriaDAO();
 			categorias = cat.listar();
@@ -84,6 +96,19 @@ public class ProdutoBean implements Serializable {
 		}
 	}
 
+	public void upload(FileUploadEvent event) {
+		try {
+			UploadedFile arquivoUpload = event.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+			Messages.addGlobalInfo("Envio da foto feito com sucesso");
+		} catch (IOException e) {
+			Messages.addGlobalError("Erro ao enviar foto");
+			e.printStackTrace();
+		}
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -99,7 +124,7 @@ public class ProdutoBean implements Serializable {
 	public void setProdutoDao(ProdutoDAO produtoDao) {
 		this.produtoDao = produtoDao;
 	}
-	
+
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}

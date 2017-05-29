@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -68,6 +69,15 @@ public class CategoriaBean implements Serializable {
 		}
 	}
 
+	public void actionEditar(ActionEvent evento){
+		try {
+			categoria = (Categoria) evento.getComponent().getAttributes().get("categoriaSelecionado");
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Erro ao tentar carregar categoria");
+			e.printStackTrace();
+		}
+	}
+	
 	public Categoria getCategoria() {
 		return categoria;
 	}

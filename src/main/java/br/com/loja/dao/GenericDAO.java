@@ -19,7 +19,7 @@ public class GenericDAO<Entidade> {
 		this.classe = (Class<Entidade>) ((ParameterizedType) getClass().getGenericSuperclass())
 				.getActualTypeArguments()[0];
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar(String campoOrdenacao) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -115,13 +115,15 @@ public class GenericDAO<Entidade> {
 		}
 	}
 
-	public void merge(Entidade entidade) {
+	@SuppressWarnings("unchecked")
+	public Entidade merge(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 		try {
 			transacao = sessao.beginTransaction();
-			sessao.merge(entidade);
+			Entidade retorno = (Entidade) sessao.merge(entidade);
 			transacao.commit();
+			return retorno;
 		} catch (RuntimeException ex) {
 			if (transacao != null) {
 				transacao.rollback();

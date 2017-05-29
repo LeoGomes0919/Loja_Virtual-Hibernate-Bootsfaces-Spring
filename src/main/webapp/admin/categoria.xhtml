@@ -55,7 +55,8 @@
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Editar">
-					<b:commandButton title="Editar" ajax="true" update="@form:panel">
+					<b:commandButton title="Editar" ajax="true"
+						update="@form:panel:panelGrid">
 						<i class="fa fa-edit"></i>
 						<f:setPropertyActionListener value="#{categorias}"
 							target="#{categoriaBean.categoria}" />
@@ -79,7 +80,7 @@
 			</label>
 			<f:facet name="footer">
 				<h:commandButton action="#{categoriaBean.actionExcluir}" ajax="true"
-					update="@form:panel2:tbl:amodal:msgs" styleClass="btn btn-danger"
+					update="@form:panel2:tbl:amodal" styleClass="btn btn-danger"
 					value="Sim" />
 
 				<h:commandButton value="Não" styleClass="btn btn-warning" />

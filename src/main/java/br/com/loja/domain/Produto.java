@@ -20,9 +20,25 @@ public class Produto extends GenericDomain {
 	@Column(nullable = false, precision = 12, scale = 2)
 	private BigDecimal preco;
 
+	@Transient
+	private String caminho;
+	
 	@ManyToOne
 	@JoinColumn()
 	private Fabricante fabricante;
+
+	@ManyToOne
+	@JoinColumn()
+	private Categoria categoria;
+
+	
+	public String getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
 
 	public String getNome() {
 		return nome;
@@ -39,10 +55,6 @@ public class Produto extends GenericDomain {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	@ManyToOne
-	@JoinColumn()
-	private Categoria categoria;
 
 	public String getDescircao() {
 		return descircao;

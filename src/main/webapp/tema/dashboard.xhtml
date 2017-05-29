@@ -15,8 +15,6 @@
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<h:outputStylesheet library="css" name="dashboard.css" />
 	<style>
@@ -76,15 +74,15 @@
 								value="Fabricante" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="fabrica">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista e Cadastro" /></li>
+									value="Lista e Cadastro" action="/admin/fabricante.xhtml"/></li>
 						</ul>
-
+							
 						<li data-toggle="collapse" data-target="#products"><i
 							class="fa fa-gift fa-lg"></i>&nbsp; <h:commandLink
 								value="Produtos" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="products">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista e Cadastro" /></li>
+									value="Lista e Cadastro" action="/admin/produtos.xhtml"/></li>
 							<li><i class="fa fa-money"></i>&nbsp; <h:commandLink
 									action="#" value="Pagamentos" /></li>
 						</ul>
@@ -114,7 +112,7 @@
 			</h:form>
 		</div>
 	</div>
-	<h:form>
+	<h:form enctype="multipart/form-data" >
 		<ui:insert name="centro" />
 	</h:form>
 </h:body>
