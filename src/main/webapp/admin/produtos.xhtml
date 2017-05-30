@@ -13,14 +13,13 @@
 			<h:outputScript library="js" name="formata_campos.js" />
 			<h:outputScript library="js" name="formatar_moedas.js" />
 		</h:head>
-
 		<p:growl id="msgs" />
 		<b:panel style="margin-left: 18%;" collapsible="false" id="panel">
 			<f:facet name="heading">
 				<h:outputLabel value="Formulário" style="font-size: 16pt;" />
 			</f:facet>
 			<nav>
-				<b:panelGrid id="panelGrid" colSpans="1,11" size="md">
+				<b:panelGrid id="panelGrid" colSpans="1, 11" size="md">
 					<h:outputText value="Nome" />
 					<b:inputText value="#{produtoBean.produto.nome}" maxlength="30"
 						span="4" />
@@ -65,11 +64,16 @@
 					<b:inputTextarea style="height: 1.5cm;"
 						value="#{produtoBean.produto.descircao}" maxlength="100" span="4" />
 
-					<h:outputText value="Foto" />
+					<h:outputText value="Upload" />
 					<p:fileUpload mode="advanced"
-						style="margin-left: 0.4cm; width: 13cm;"
+						style="margin-left: 0.4cm; width: 13.5cm;"
 						fileUploadListener="#{produtoBean.upload}" label="Selecionar"
-						uploadLabel="Enviar" cancelLabel="Cancelar" update="msgs" />
+						uploadLabel="Enviar" cancelLabel="Cancelar" update="msgs, foto " />
+
+					<h:outputText value="Foto" style="margin-top: 2cm;" />
+					<p:graphicImage value="#{imagenBean.foto}" id="foto">
+						<f:param name="caminho" value="#{produtoBean.produto.caminho}" />
+					</p:graphicImage>
 
 					<b:commandButton value="Salvar" look="success"
 						style="margin-left: 2.9cm; margin-top: 0.2cm;"
@@ -83,11 +87,12 @@
 			<f:facet name="heading">
 				<h:outputLabel value="Lista de Produtos" style="font-size: 14pt;" />
 			</f:facet>
+			<p:separator />
 			<b:dataTable fixedHeader="true" scroll-size="400px"
 				value="#{produtoBean.produtos}" var="produto" scroll-x="false"
 				responsive="true" page-length="2" page-length-menu="2,5,10,15,20"
 				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-				id="tbl" >
+				id="tbl">
 
 				<b:dataTableColumn label="ID">
 					<h:outputText value="#{produto.id}" />

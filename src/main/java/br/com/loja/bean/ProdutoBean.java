@@ -39,6 +39,11 @@ public class ProdutoBean implements Serializable {
 
 	public void actionSalvar() {
 		try {
+			if (produto.getCaminho() == null) {
+				Messages.addGlobalError("Campo foto é obrigatório");
+				return;
+			}
+
 			Produto produtoRetorno = produtoDao.merge(produto);
 			Path origem = Paths.get(produto.getCaminho());
 			Path destino = Paths
@@ -58,6 +63,8 @@ public class ProdutoBean implements Serializable {
 	public void actionEditar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			produto.setCaminho("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+					+ produto.getId() + ".png");
 
 			FabricanteDAO fab = new FabricanteDAO();
 			fabricantes = fab.listar("nome");
@@ -87,10 +94,14 @@ public class ProdutoBean implements Serializable {
 	public void actionExcluir() {
 		try {
 			produtoDao.excluir(produto);
+			Path arquivo = Paths
+					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+							+ produto.getId() + ".png");
+			Files.deleteIfExists(arquivo);
 			actionInserir();
 			produtos = produtoDao.listar();
 			Messages.addGlobalInfo("Produto excluido com Sucesso!");
-		} catch (RuntimeException e) {
+		} catch (RuntimeException | IOException e) {
 			Messages.addGlobalError("Erro ao tentar excluir o produto");
 			e.printStackTrace();
 		}
