@@ -41,8 +41,7 @@
 				<div class="col-md-3">
 					<b:inputText id="cpf" placeholder="Digite seu CPF"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.cpf}"
-						onkeypress="formatar('999.999.999-99', this)" maxlength="14" />
+						value="#{pesssoaBean.pessoa.cpf}" maxlength="14" />
 				</div>
 			</div>
 			<!-- Text input-->
@@ -51,8 +50,7 @@
 				<div class="col-md-2">
 					<b:inputText id="rg" placeholder="Digite seu RG"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.rg}"
-						onkeypress="formatar('9999.999.999', this)" maxlength="10" />
+						value="#{pesssoaBean.pessoa.rg}" maxlength="10" />
 				</div>
 			</div>
 
@@ -74,7 +72,7 @@
 				<div class="col-md-2">
 					<b:inputText id="Celular" placeholder="Digite seu Celular"
 						styleClass="form-conrol input-md" required="true"
-						value="#{pesssoaBean.pessoa.celular}"/>
+						value="#{pesssoaBean.pessoa.celular}" />
 				</div>
 			</div>
 
@@ -146,7 +144,8 @@
 				<div class="col-md-2">
 					<b:inputText id="cep" placeholder="Digite seu CEP"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.cep}" onkeypress="formatar('99999-999', this)" maxlength="9"/>
+						value="#{pesssoaBean.pessoa.cep}"
+						onkeypress="formatar('99999-999', this)" maxlength="9" />
 				</div>
 			</div>
 
@@ -181,7 +180,6 @@
 					</h:selectOneMenu>
 				</div>
 			</div>
-
 		</b:panel>
 
 		<b:panel collapsed="true">

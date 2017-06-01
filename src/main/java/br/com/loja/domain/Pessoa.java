@@ -32,6 +32,24 @@ public class Pessoa extends GenericDomain {
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
 
+	//Dados de login
+	@Column(length = 30, nullable = true)
+	private String nomeUsuario;
+	
+	@Column(length = 32, nullable = false)
+	private String senha;
+
+	@Column(nullable = false)
+	private Character tipo;
+
+	@Column(nullable = true)
+	private Boolean ativo;
+	
+	
+	@ManyToOne
+	@JoinColumn(nullable = false, name="cidade_id")
+	private Cidade cidade;
+	
 	public Date getDataNasc() {
 		return dataNasc;
 	}
@@ -40,10 +58,6 @@ public class Pessoa extends GenericDomain {
 		this.dataNasc = dataNasc;
 	}
 	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Cidade cidade;
-
 	public String getNome() {
 		return nome;
 	}

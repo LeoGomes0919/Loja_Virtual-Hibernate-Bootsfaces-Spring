@@ -84,7 +84,6 @@ public class ProdutoBean implements Serializable {
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar os produtos");
 		}
-
 	}
 
 	public void actionInserir() {

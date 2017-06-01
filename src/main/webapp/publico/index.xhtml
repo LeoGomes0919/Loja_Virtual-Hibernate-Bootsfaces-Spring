@@ -13,13 +13,124 @@
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="shop-homepage.css" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
-	<h:outputScript library="js" name="jquery.js" />
+
 	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputScript library="js" name="navbar.js" />
 
 	<title>Home | Loja Virtual</title>
+	<style>
+.teste .ui-widget-content {
+	border: none !important;
+	border-style: none !important;
+}
+</style>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="form2">
+		<p:growl id="msgs" life="006" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto"
+			rel="stylesheet" />
+		<div id="flipkart-navbar" style="margin-top: -1.8cm;">
+			<div class="container">
+				<div class="row row1">
+					<ul class="largenav pull-right">
+						<li class="upper-links"><h:commandLink styleClass="links"
+								style="font-size: 11pt;" value="Prédios"></h:commandLink></li>
+						<li class="upper-links"><a class="links" href="#"
+							style="font-size: 11pt;">Empresas</a></li>
+						<li class="upper-links"><a class="links" href="#"
+							style="font-size: 11pt;">Residências</a></li>
+						<li class="upper-links"><a class="links" href="#"
+							style="font-size: 11pt;">Condomínios</a></li>
+						<li class="upper-links"><a class="links" href="#"> <svg
+									class="" width="16px" height="12px" style="overflow: visible;">
+								<path
+									d="M8.037 17.546c1.487 0 2.417-.93 2.417-2.417H5.62c0 1.486.93 2.415 2.417 2.415m5.315-6.463v-2.97h-.005c-.044-3.266-1.67-5.46-4.337-5.98v-.81C9.01.622 8.436.05 7.735.05 7.033.05 6.46.624 6.46 1.325v.808c-2.667.52-4.294 2.716-4.338 5.98h-.005v2.972l-1.843 1.42v1.376h14.92v-1.375l-1.842-1.42z"
+									fill="#fff"></path> </svg>
+						</a></li>
+						<li class="upper-links dropdown"><a class="links" href="#"
+							style="font-size: 11pt;"><i class="fa fa-user"></i> Usuário</a>
+							<ul class="dropdown-menu">
+								<li class="profile-li"><p:commandLink
+										styleClass="profile-links" value="Fazer Login"/></li>
+								<li class="profile-li"><h:commandLink
+										styleClass="profile-links" value="Faça seu Cadastro"
+										action="#{pesssoaBean.novo}" /></li>
+							</ul></li>
+					</ul>
+				</div>
+				<div class="row row2">
+					<div class="col-sm-2">
+						<h2 style="margin: 0px;">
+							<span class="smallnav menu" onclick="openNav()">☰ Menu</span>
+						</h2>
+						<h1 style="margin: 0px;">
+							<span class="largenav" style="font-size: 18pt;">Clean
+								Portaria
+								<p style="font-size: 10pt; margin-left: 0.5cm;">Limpeza e
+									Conservação</p>
+							</span>
+						</h1>
+					</div>
+					<div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
+						<div class="row">
+							<input class="flipkart-navbar-input col-xs-11" type="text"
+								placeholder="Pesquisar Serviços" name="" style="color: black;" />
+							<button class="flipkart-navbar-button col-xs-1">
+								<svg width="15px" height="16px"> <path
+									d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="cart largenav col-sm-2">
+						<h:commandLink styleClass="cart-button" id="carrinhoBotao">
+							<svg class="cart-svg " width="16 " height="16 "
+								viewBox="0 0 16 16 "> <path
+								d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 "
+								fill="#fff "></path> </svg>Carrinho 
+								<span class="item-number "> <h:outputText
+									value="#{vendaBean.totalCarrinho}" id="totalC" />
+							</span>
+						</h:commandLink>
+						<p:overlayPanel id="moviePanel" for="carrinhoBotao"
+							hideEffect="fade" style="width:350px" showEvent="mouseover"
+							hideEvent="mousedown">
+							<p:dataGrid rows="3" columns="3" paginator="false"
+								value="#{vendaBean.itensVenda}" var="itemVenda" id="dataCar"
+								emptyMessage="Meu Carrinho" styleClass="teste" layout="grid">
+								<h:panelGrid columns="1">
+
+									<p:graphicImage library="img" name="logo1.png" width="70"
+										height="60" />
+										&nbsp;
+									<h:outputText value="#{itemVenda.produto.nome}"
+										style="font-size: 13pt; color: blue;" />
+										&nbsp;
+									<h:outputText value="Quantidade:" />
+										&nbsp;
+									<h:outputText value="#{itemVenda.quantidade}" />
+
+								</h:panelGrid>
+							</p:dataGrid>
+						</p:overlayPanel>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mySidenav" class="sidenav">
+			<div class="container"
+				style="background-color: #2874f0; padding-top: 10px;">
+				<span class="sidenav-heading">Home</span> <a
+					href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+			</div>
+			<a href="#">Sobre Nós</a> <a href="#">Contato</a> <a href="#">Sobre
+				o Projeto</a>
+		</div>
+	</h:form>
+	<br />
+	<h:form id="form1">
 		<!-- Page Content -->
 		<div class="container">
 			<div class="row">
@@ -29,22 +140,11 @@
 						</a>
 					</p>
 					<div class="list-group">
-						<a href="#" class="list-group-item">Equipamentos Esportivos</a> <a
-							href="#" class="list-group-item">Eletronicos e Telefonia</a> <a
-							href="#" class="list-group-item">Instrumentos Musicais</a>
+						<h:commandLink styleClass="list-group-item" value="Prédios" />
+						<h:commandLink styleClass="list-group-item" value="Condomínios" />
+						<h:commandLink styleClass="list-group-item" value="Residências" />
+						<h:commandLink styleClass="list-group-item" value="Empresas" />
 					</div>
-					<label>Fazer Login</label>
-					<form class="navbar-form navbar-right" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" name="username"
-								placeholder="Nome de usuário" />
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" name="password"
-								placeholder="Senha" />
-						</div>
-						<button type="submit" class="btn btn-default">Login</button>
-					</form>
 				</div>
 
 				<div class="col-md-9">
@@ -63,20 +163,20 @@
 								</ol>
 								<div class="carousel-inner">
 									<div class="item active">
-										<p:graphicImage library="img" name="1.jpg"
-											styleClass="slide-image" />
-									</div>
-									<div class="item">
 										<p:graphicImage library="img" name="2.jpg"
 											styleClass="slide-image" />
 									</div>
 									<div class="item">
-										<p:graphicImage library="img" name="3.jpg"
-											styleClass="slide-image" />
+										<p:graphicImage library="img" name="3.png"
+											styleClass="slide-image" width="940" height="300" />
 									</div>
 									<div class="item">
-										<p:graphicImage library="img" name="4.jpg"
-											styleClass="slide-image" />
+										<p:graphicImage library="img" name="4.png"
+											styleClass="slide-image" width="940" height="300" />
+									</div>
+									<div class="item">
+										<p:graphicImage library="img" name="4.png"
+											styleClass="slide-image" width="940" height="300" />
 									</div>
 								</div>
 								<a class="left carousel-control"
@@ -91,191 +191,91 @@
 
 					</div>
 
-					<div class="row">
+					<!-- Tabela de Produtos -->
+					<p:dataGrid columns="3" rows="3" value="#{vendaBean.produtos}"
+						var="produto" styleClass="teste" layout="grid">
+						<b:panel>
+							<b:image library="img" name="logo1.png" width="150" height="100" />
+							<p:separator />
+							<p>
+								<h:outputText value="#{produto.nome}"
+									style="font-size: 15pt; font-weight: bold; color: #00cece;" />
+								&nbsp; &nbsp;
+								<h:outputText value="R$ #{produto.preco}"
+									style="font-size: 13pt; font-weight: bold;" />
+							</p>
+							<p>
+								<h:outputText value="#{produto.descircao}"
+									style="font-size: 12pt;" />
+							</p>
+							<p:separator />
+							<span class="glyphicon glyphicon-star" style="color: blue;"></span>
+							<span class="glyphicon glyphicon-star" style="color: blue;"></span>
+							<span class="glyphicon glyphicon-star" style="color: blue;"></span>
+							<span class="glyphicon glyphicon-star" style="color: blue;"></span>
+							<span class="glyphicon glyphicon-star-empty"></span>
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$24.99</h4>
-									<h4>
-										<a href="#">First Product</a>
-									</h4>
-									<p>
-										See more snippets like this online store item at <a
-											target="_blank" href="http://www.bootsnipp.com">Bootsnipp
-											- http://bootsnipp.com</a>.
-									</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+							<p:commandLink style="font-size: 12pt;" styleClass="pull-right"
+								actionListener="#{vendaBean.adicionar}"
+								update=":form1:tabelaProduto :form1:painelFinalizacao :form2:totalC :form2:msgs :form2:moviePanel">
+								<span class="glyphicon glyphicon-shopping-cart"></span>
+								Add carrinho
+								<f:attribute name="produtoSelecionado" value="#{produto}" />
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$64.99</h4>
-									<h4>
-										<a href="#">Second Product</a>
-									</h4>
-									<p>This is a short description. Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit.</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star-empty"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+							</p:commandLink>
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$74.99</h4>
-									<h4>
-										<a href="#">Third Product</a>
-									</h4>
-									<p>This is a short description. Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit.</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star-empty"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+						</b:panel>
+					</p:dataGrid>
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$84.99</h4>
-									<h4>
-										<a href="#">Fourth Product</a>
-									</h4>
-									<p>This is a short description. Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit.</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star-empty"></span> <span
-											class="glyphicon glyphicon-star-empty"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+					<p:dataTable id="tabelaProduto" value="#{vendaBean.itensVenda}"
+						var="itemVenda"
+						emptyMessage="Nenhum produto adicionado ao seu carrinho">
+						<p:column headerText="ID">
+							<h:outputText value="#{itemVenda.produto.id}" />
+						</p:column>
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$94.99</h4>
-									<h4>
-										<a href="#">Fifth Product</a>
-									</h4>
-									<p>This is a short description. Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit.</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star-empty"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+						<p:column headerText="Nome">
+							<h:outputText value="#{itemVenda.produto.nome}" />
+						</p:column>
 
-						<div class="col-sm-4 col-lg-4 col-md-4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/320x150" alt="" />
-								<div class="caption">
-									<h4 class="pull-right">$94.99</h4>
-									<h4>
-										<a href="#">Fifth Product</a>
-									</h4>
-									<p>This is a short description. Lorem ipsum dolor sit amet,
-										consectetur adipiscing elit.</p>
-								</div>
-								<div class="ratings">
-									<p class="pull-right">
-										<h:commandLink style="font-size: 12pt;">
-											<span class="glyphicon glyphicon-shopping-cart"></span>
-											Add carrinho
-										</h:commandLink>
-									</p>
-									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star-empty"></span>
-									</p>
-								</div>
-							</div>
-						</div>
+						<p:column headerText="Valor Un.">
+							<h:outputText value="#{itemVenda.produto.preco}">
+								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
 
-					</div>
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{itemVenda.quantidade}" />
+						</p:column>
 
+						<p:column headerText="Valor Parcial">
+							<h:outputText value="#{itemVenda.precoParcial}">
+								<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Excluir">
+							<p:commandButton icon="ui-icon-minus"
+								update=":form1:tabelaProduto :form1:painelFinalizacao :form2:totalC :form2:moviePanel"
+								actionListener="#{vendaBean.remover}">
+								<f:attribute name="itemSelecionado" value="#{itemVenda}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+					<br />
+					<b:panel title="Valor Total" id="painelFinalizacao">
+						<h:outputText value="Total: "
+							style="font-size: 13pt; font-weight: bold;" />
+							&nbsp;
+							<h:outputText value="R$ #{vendaBean.venda.precoTotal}"
+							style="font-size: 13pt;">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+
+						<p:commandButton value="Finalizar compra" styleClass="pull-right" />
+					</b:panel>
 				</div>
-
 			</div>
-
 		</div>
 		<div class="container">
 

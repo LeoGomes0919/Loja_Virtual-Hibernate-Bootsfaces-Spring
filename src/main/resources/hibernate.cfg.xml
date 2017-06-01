@@ -40,11 +40,9 @@
 		<mapping class="br.com.loja.domain.Cidade" />
 		<mapping class="br.com.loja.domain.Estado" />
 		<mapping class="br.com.loja.domain.Fabricante" />
-		<mapping class="br.com.loja.domain.Foto" />
 		<mapping class="br.com.loja.domain.ItemVenda" />
 		<mapping class="br.com.loja.domain.Pessoa" />
 		<mapping class="br.com.loja.domain.Produto" />
-		<mapping class="br.com.loja.domain.Usuario" />
 		<mapping class="br.com.loja.domain.Venda" />
 
 	</session-factory>

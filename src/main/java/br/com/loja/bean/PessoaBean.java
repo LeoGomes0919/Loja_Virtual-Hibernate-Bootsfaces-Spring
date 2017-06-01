@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import org.omnifaces.util.Messages;
 
@@ -18,6 +19,7 @@ import br.com.loja.domain.Pessoa;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "pesssoaBean")
+@SessionScoped
 public class PessoaBean implements Serializable {
 
 	// Objetos
@@ -30,19 +32,29 @@ public class PessoaBean implements Serializable {
 
 	PessoaDAO pessoaDAO = new PessoaDAO();
 
+	
 	@PostConstruct
-	public void novo() {
+	public void listar(){
+		try {
+			pessoas = pessoaDAO.listar();
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Erro ao buscar a lista de pessoas");
+			e.printStackTrace();
+		}
+	}
+	
+	public String novo() {
 		try {
 			pessoa = new Pessoa();
 			EstadoDAO estadoDAO = new EstadoDAO();
-			pessoas = pessoaDAO.listar();
-
 			estados = estadoDAO.listar("nome");
 			
+			cidades = new ArrayList<Cidade>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
 		}
+		return "/cliente/form_pessoa?faces-redirect=true";
 	}
 	
 	public void actionExcluir(){
@@ -55,7 +67,7 @@ public class PessoaBean implements Serializable {
 	}
 
 	public String fazerlogin() {
-		return "login?faces-redirect=true";
+		return "index?faces-redirect=true";
 	}
 
 	public String actionSalvar() {
