@@ -43,11 +43,11 @@ public class ProdutoBean implements Serializable {
 				Messages.addGlobalError("Campo foto é obrigatório");
 				return;
 			}
-
+			
 			Produto produtoRetorno = produtoDao.merge(produto);
 			Path origem = Paths.get(produto.getCaminho());
 			Path destino = Paths
-					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/"
 							+ produtoRetorno.getId() + ".png");
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			actionInserir();
@@ -63,7 +63,7 @@ public class ProdutoBean implements Serializable {
 	public void actionEditar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			produto.setCaminho("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+			produto.setCaminho("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/"
 					+ produto.getId() + ".png");
 
 			FabricanteDAO fab = new FabricanteDAO();
@@ -94,7 +94,7 @@ public class ProdutoBean implements Serializable {
 		try {
 			produtoDao.excluir(produto);
 			Path arquivo = Paths
-					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/"
+					.get("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/"
 							+ produto.getId() + ".png");
 			Files.deleteIfExists(arquivo);
 			actionInserir();

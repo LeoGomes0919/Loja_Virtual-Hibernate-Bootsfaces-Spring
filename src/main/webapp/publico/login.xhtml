@@ -1,54 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Login | Loja Virtual</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="login.css" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<style>
+.image {
+	background-image:
+		url("#{facesContext.externalContext.requestContextPath}/resources/img/1344899.jpg");
+}
+</style>
 </h:head>
-<h:body>
-	<div id="fullscreen_bg" class="fullscreen_bg" />
-	<form class="form-signin">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 col-md-offset-4">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<form class="form-signin">
-								<h3 class="text-center">
-									Login<br />
-									<br />
-								</h3>
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-envelope"></span> </span> <input
-											type="text" class="form-control" placeholder="User Name" />
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="input-group">
-										<span class="input-group-addon"><span
-											class="glyphicon glyphicon-lock"></span></span> <input
-											type="password" class="form-control" placeholder="Password" />
-									</div>
-								</div>
 
-								<button class="btn btn-lg btn-primary btn-block" type="submit">
-									Login</button>
-							</form>
-						</div>
+<h:body styleClass="image">
+	<form id="login" method="post"
+		action="#{request.contextPath}/j_spring_security_check">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="text-center">Bem Vindo</h1>
+				</div>
+				<h:outputText value=" Login ou senha
+					incorretos!"
+					rendered="#{!empty param.login_error}"
+					style="text-align: left;color: red" />
+				<div class="modal-body">
+					<div class="form-group">
+						<input type="text" class="form-control input-lg"
+							placeholder="Nome de Usuário" name='j_username' />
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="form-control input-lg"
+							placeholder="Senha" name='j_password' />
+					</div>
+
+					<div class="form-group">
+						<input type="submit" class="btn btn-block btn-lg btn-primary"
+							value="Login" /> <span class="pull-right"><a href="#">Cadastre-se</a></span><span><input type="checkbox"
+							checked="checked" name="_spring_security_remember_me" /> Lembrar
+							Senha</span>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+		</script>
 	</form>
 </h:body>
 </html>

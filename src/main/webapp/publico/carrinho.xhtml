@@ -24,6 +24,57 @@
 </h:head>
 
 <h:body>
-	
+	<h:form id="form1" class="container">
+		<b:dataTable id="tabelaProduto" value="#{vendaBean.itensVenda}"
+			var="itemVenda" fixedHeader="true" scroll-size="400px"
+			scroll-x="false" responsive="true" page-length="4" border="false"
+			page-length-menu="2,5,10"
+			customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+			searching="false" customOptions="false">
+
+			<b:dataTableColumn label="ID">
+				<h:outputText value="#{itemVenda.produto.id}" />
+			</b:dataTableColumn>
+
+			<b:dataTableColumn label="Nome">
+				<h:outputText value="#{itemVenda.produto.nome}" />
+			</b:dataTableColumn>
+
+			<b:dataTableColumn label="Valor Un.">
+				<h:outputText value="#{itemVenda.produto.preco}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+			</b:dataTableColumn>
+
+			<b:dataTableColumn label="Quantidade">
+				<h:outputText value="#{itemVenda.quantidade}" />
+			</b:dataTableColumn>
+
+			<b:dataTableColumn label="Valor Parcial">
+				<h:outputText value="#{itemVenda.precoParcial}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+			</b:dataTableColumn>
+
+			<b:dataTableColumn label="Excluir">
+				<h:commandButton value="remover"
+					actionListener="#{vendaBean.remover}" styleClass="btn btn-info">
+					<f:attribute name="itemSelecionado" value="#{itemVenda}" />
+				</h:commandButton>
+			</b:dataTableColumn>
+		</b:dataTable>
+		<br />
+		<b:panel title="Valor Total" id="painelFinalizacao">
+			<h:outputText value="Total: "
+				style="font-size: 13pt; font-weight: bold;" />
+							&nbsp;
+							<h:outputText value="R$ #{vendaBean.venda.precoTotal}"
+				style="font-size: 13pt;">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+			</h:outputText>
+
+			<p:commandButton value="Finalizar compra" styleClass="pull-right" />
+		</b:panel>
+	</h:form>
 </h:body>
 </html>

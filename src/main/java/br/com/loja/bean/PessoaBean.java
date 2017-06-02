@@ -36,6 +36,7 @@ public class PessoaBean implements Serializable {
 	@PostConstruct
 	public void listar(){
 		try {
+			pessoa = new Pessoa();
 			pessoas = pessoaDAO.listar();
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao buscar a lista de pessoas");
@@ -54,7 +55,7 @@ public class PessoaBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
 		}
-		return "/cliente/form_pessoa?faces-redirect=true";
+		return "/publico/form_pessoa?faces-redirect=true";
 	}
 	
 	public void actionExcluir(){

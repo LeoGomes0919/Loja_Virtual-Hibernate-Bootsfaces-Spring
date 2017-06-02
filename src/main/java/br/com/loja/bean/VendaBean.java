@@ -35,7 +35,7 @@ public class VendaBean implements Serializable {
 		try {
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
-			
+
 			produtos = produtoDAO.listar();
 
 			// itensVenda = new ArrayList<>();
@@ -45,6 +45,7 @@ public class VendaBean implements Serializable {
 		}
 	}
 
+	// Adicinar itens ao carrinho
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
@@ -76,6 +77,7 @@ public class VendaBean implements Serializable {
 		calcular();
 	}
 
+	// Remover item por completo independe da quantidade
 	public void remover(ActionEvent evento) {
 		ItemVenda itemVenda = (ItemVenda) evento.getComponent().getAttributes().get("itemSelecionado");
 		int achou = -1;
@@ -91,6 +93,7 @@ public class VendaBean implements Serializable {
 		calcular();
 	}
 
+	// Calcular Valores ao serem adicionados
 	public void calcular() {
 		venda.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -139,12 +142,13 @@ public class VendaBean implements Serializable {
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	
+
 	public int getTotalCarrinho() {
 		return totalCarrinho;
 	}
-	
+
 	public void setTotalCarrinho(int totalCarrinho) {
 		this.totalCarrinho = totalCarrinho;
 	}
+
 }

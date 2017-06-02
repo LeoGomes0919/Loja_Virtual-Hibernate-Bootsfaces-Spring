@@ -11,6 +11,7 @@ public class Produto extends GenericDomain {
 	@Column(length = 50, nullable = false)
 	private String nome;
 
+	
 	@Column(length = 100, nullable = false)
 	private String descircao;
 

@@ -74,15 +74,15 @@
 								value="Fabricante" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="fabrica">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista e Cadastro" action="/admin/fabricante.xhtml"/></li>
+									value="Lista e Cadastro" action="/admin/fabricante.xhtml" /></li>
 						</ul>
-							
+
 						<li data-toggle="collapse" data-target="#products"><i
 							class="fa fa-gift fa-lg"></i>&nbsp; <h:commandLink
 								value="Produtos" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="products">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista e Cadastro" action="/admin/produtos.xhtml"/></li>
+									value="Lista e Cadastro" action="/admin/produtos.xhtml" /></li>
 							<li><i class="fa fa-money"></i>&nbsp; <h:commandLink
 									action="#" value="Pagamentos" /></li>
 						</ul>
@@ -92,7 +92,7 @@
 								value="Categoria" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="categoria">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista e Cadastro" action="#" /></li>
+									value="Lista e Cadastro" action="/admin/categoria.xhtml" /></li>
 						</ul>
 
 						<li data-toggle="collapse" data-target="#cliente"
@@ -105,14 +105,16 @@
 									value="Lista de Usuários" /></li>
 						</ul>
 
-						<li><i class="glyphicon glyphicon-log-out"></i>&nbsp;<h:commandLink
-								value="Logout" /></li>
+						<li><i class="glyphicon glyphicon-log-out"></i>&nbsp; <h:commandLink
+								value="Logout"
+								onclick="document.location='#{request.contextPath}/j_spring_security_logout'">
+							</h:commandLink></li>
 					</ul>
 				</div>
 			</h:form>
 		</div>
 	</div>
-	<h:form enctype="multipart/form-data" >
+	<h:form enctype="multipart/form-data">
 		<ui:insert name="centro" />
 	</h:form>
 </h:body>

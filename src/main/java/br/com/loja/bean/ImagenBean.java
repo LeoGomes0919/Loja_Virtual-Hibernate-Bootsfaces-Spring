@@ -35,7 +35,7 @@ public class ImagenBean implements Serializable {
 	public StreamedContent getFoto() throws IOException {
 		if (caminho == null || caminho.isEmpty()) {
 			Path path = Paths.get(
-					"C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/uploads/branco.png");
+					"C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/branco.png");
 			InputStream stream = Files.newInputStream(path);
 			foto = new DefaultStreamedContent(stream);
 		} else {

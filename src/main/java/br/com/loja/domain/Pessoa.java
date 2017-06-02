@@ -11,7 +11,7 @@ public class Pessoa extends GenericDomain {
 	@Column(length = 50, nullable = false)
 	private String nome;
 	@Column(unique = true, nullable = false)
-	private Long cpf;
+	private String cpf;
 	@Column(nullable = false, unique = true)
 	private String rg;
 	@Column(length = 40, nullable = false)
@@ -24,8 +24,6 @@ public class Pessoa extends GenericDomain {
 	private String cep;
 	@Column(length = 15, nullable = false)
 	private String telefone;
-	@Column(length = 40, nullable = false)
-	private String email;
 	@Column(length = 15, nullable = false)
 	private String celular;
 	@Column(nullable = false)
@@ -33,6 +31,9 @@ public class Pessoa extends GenericDomain {
 	private Date dataNasc;
 
 	//Dados de login
+	@Column(length = 40, nullable = false)
+	private String email;
+	
 	@Column(length = 30, nullable = true)
 	private String nomeUsuario;
 	
@@ -40,7 +41,7 @@ public class Pessoa extends GenericDomain {
 	private String senha;
 
 	@Column(nullable = false)
-	private Character tipo;
+	private String tipo;
 
 	@Column(nullable = true)
 	private Boolean ativo;
@@ -64,14 +65,6 @@ public class Pessoa extends GenericDomain {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Long getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(Long cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getRg() {
@@ -144,5 +137,45 @@ public class Pessoa extends GenericDomain {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

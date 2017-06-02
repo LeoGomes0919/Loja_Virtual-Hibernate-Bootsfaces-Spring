@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/tema/dashboard.xhtml"
+<ui:composition template="dashboard.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -42,7 +42,7 @@
 						<f:validateLongRange minimum="0" maximum="1000" />
 					</b:inputText>
 
-					<h:outputText value="Fabricante" />
+					<h:outputText value="Empresa" />
 					<b:selectOneMenu value="#{produtoBean.produto.fabricante}" span="3"
 						converter="omnifaces.SelectItemsConverter">
 						<f:selectItem itemLabel="Selecione um fabricante"
@@ -66,7 +66,7 @@
 
 					<h:outputText value="Upload" />
 					<p:fileUpload mode="advanced"
-						style="margin-left: 0.4cm; width: 13.5cm;"
+						style="margin-left: 0.4cm; width: 14cm;"
 						fileUploadListener="#{produtoBean.upload}" label="Selecionar"
 						uploadLabel="Enviar" cancelLabel="Cancelar" update="msgs, foto " />
 

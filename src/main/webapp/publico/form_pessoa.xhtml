@@ -41,7 +41,9 @@
 				<div class="col-md-3">
 					<b:inputText id="cpf" placeholder="Digite seu CPF"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.cpf}" maxlength="14" />
+						value="#{pesssoaBean.pessoa.cpf}" maxlength="14"
+						requiredMessage="Campo CPF Obrigatório"
+						onkeyup="formatar('999.999.999-99', this)" />
 				</div>
 			</div>
 			<!-- Text input-->
@@ -50,7 +52,9 @@
 				<div class="col-md-2">
 					<b:inputText id="rg" placeholder="Digite seu RG"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.rg}" maxlength="10" />
+						value="#{pesssoaBean.pessoa.rg}" maxlength="10"
+						requiredMessage="Campo RG Obrigatório"
+						onkeyup="formatar('9999-999', this)" />
 				</div>
 			</div>
 
@@ -59,9 +63,10 @@
 				<label class="col-md-4 control-label" for="data">Data
 					Nascimento</label>
 				<div class="col-md-2">
-					<b:datepicker value="#{pesssoaBean.pessoa.dataNasc}" mode="popup">
-						<f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
+					<b:datepicker value="#{pesssoaBean.pessoa.dataNasc}"
+						requiredMessage="Campo Data Obrigatório" showButtonPanel="true"
+						changeMonth="true" changeYear="true">
+						<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" />
 					</b:datepicker>
 				</div>
 			</div>
@@ -72,7 +77,8 @@
 				<div class="col-md-2">
 					<b:inputText id="Celular" placeholder="Digite seu Celular"
 						styleClass="form-conrol input-md" required="true"
-						value="#{pesssoaBean.pessoa.celular}" />
+						value="#{pesssoaBean.pessoa.celular}"
+						requiredMessage="Campo Celular Obrigatório" />
 				</div>
 			</div>
 
@@ -83,19 +89,11 @@
 				<div class="col-md-2">
 					<b:inputText id="Telefone" placeholder="Digite seu Telefone"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.telefone}" />
+						value="#{pesssoaBean.pessoa.telefone}"
+						requiredMessage="Campo Telefone Obrigatório" />
 				</div>
 			</div>
 
-			<!-- Text input-->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="Email">E-mail</label>
-				<div class="col-md-3">
-					<b:inputText id="Email" placeholder="Digite seu Email"
-						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.email}" />
-				</div>
-			</div>
 			<f:facet name="footer">
 				<div align="right">
 					<h:outputText value="Preencha os dados de enderço para salvar"
@@ -114,7 +112,8 @@
 				<div class="col-md-4">
 					<b:inputText id="rua" placeholder="Digite sua Rua"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.rua}" />
+						value="#{pesssoaBean.pessoa.rua}"
+						requiredMessage="Campo Rua Obrigatório" />
 				</div>
 			</div>
 
@@ -124,7 +123,8 @@
 				<div class="col-md-4">
 					<b:inputText id="bairro" placeholder="Digite seu Bairro"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.bairro}" />
+						value="#{pesssoaBean.pessoa.bairro}"
+						requiredMessage="Campo Bairro Obrigatório" />
 				</div>
 			</div>
 
@@ -134,7 +134,8 @@
 				<div class="col-md-2">
 					<b:inputText id="num" placeholder="Número da sua casa"
 						styleClass="form-control input-md" required="true"
-						value="#{pesssoaBean.pessoa.numero}" />
+						value="#{pesssoaBean.pessoa.numero}"
+						requiredMessage="Campo Número Obrigatório" />
 				</div>
 			</div>
 
@@ -145,7 +146,8 @@
 					<b:inputText id="cep" placeholder="Digite seu CEP"
 						styleClass="form-control input-md" required="true"
 						value="#{pesssoaBean.pessoa.cep}"
-						onkeypress="formatar('99999-999', this)" maxlength="9" />
+						onkeyup="formatar('99999-999', this)" maxlength="9"
+						requiredMessage="Campo CEP Obrigatório" />
 				</div>
 			</div>
 
@@ -155,7 +157,8 @@
 					<h:selectOneMenu id="Estado" filter="true"
 						filterMatchMode="contains" value="#{pesssoaBean.estado}"
 						converter="omnifaces.SelectItemsConverter"
-						styleClass="form-control input-md">
+						styleClass="form-control input-md" required="true"
+						requiredMessage="Selecione um Estado">
 						<f:selectItem itemLabel="Selecione o estado"
 							noSelectionOption="true" />
 						<f:selectItems value="#{pesssoaBean.estados}" var="e"
@@ -172,7 +175,8 @@
 					<h:selectOneMenu id="cidade" filter="true"
 						filterMatchMode="contains" value="#{pesssoaBean.pessoa.cidade}"
 						converter="omnifaces.SelectItemsConverter"
-						styleClass="form-control input-md">
+						styleClass="form-control input-md" required="true"
+						requiredMessage="Seleciona uma Cidade">
 						<f:selectItem itemLabel="Selecione a cidade"
 							noSelectionOption="true" />
 						<f:selectItems value="#{pesssoaBean.cidades}" var="c"
@@ -186,6 +190,61 @@
 			<f:facet name="heading">
 				<h:outputText value="Dados de Login" style="font-size: 14pt;" />
 			</f:facet>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="Email">E-mail</label>
+				<div class="col-md-3">
+					<b:inputText id="Email" placeholder="Digite seu Email"
+						styleClass="form-control input-md" required="true"
+						value="#{pesssoaBean.pessoa.email}"
+						requiredMessage="Campo E-mail Obrigatório" />
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="Usuario">Usuário</label>
+				<div class="col-md-2">
+					<b:inputText id="Usuario" placeholder="Digite seu Nome de Usuário"
+						styleClass="form-control input-md" required="true"
+						value="#{pesssoaBean.pessoa.nomeUsuario}"
+						requiredMessage="Campo Usuário Obrigatório" />
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="Senha">Senha</label>
+				<div class="col-md-2">
+					<b:inputSecret id="Senha" placeholder="Digite sua Senha"
+						styleClass="form-control input-md" required="true"
+						value="#{pesssoaBean.pessoa.senha}" maxlength="32"
+						requiredMessage="Campo Senha Obrigatório">
+					</b:inputSecret>
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="Tipo">Tipo</label>
+				<div class="col-md-1"
+					style="margin-top: -0.4cm; margin-left: -0.5cm;">
+					<b:radiobutton value="#{pesssoaBean.pessoa.tipo}" id="Tipo"
+						itemLabel="Cliente" itemValue="ROLE_C" required="true"
+						styleClass="radio" requiredMessage="Marque a opção Tipo" />
+				</div>
+			</div>
+
+			<!-- Text input-->
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="Ativo">Ativo</label>
+				<div class="col-md-3">
+					<b:selectBooleanCheckbox id="Ativo"
+						value="#{pesssoaBean.pessoa.ativo}" required="true"
+						requiredMessage="Marque que você é Ativo" />
+				</div>
+			</div>
 
 			<f:facet name="footer">
 				<div align="right">
