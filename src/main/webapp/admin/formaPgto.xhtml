@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="centro">
+		<h:head>
+			<title>Formas Pagaemnto | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<h:outputStylesheet library="css" name="bootstrap.min.css" />
+
+			<h:outputScript library="js" name="bootstrap.min.js" />
+
+		</h:head>
+		<p:growl id="msgs" />
+		<b:panel style="margin-left: 18%;" collapsible="false" id="panel">
+			<f:facet name="heading">
+				<p:outputLabel value="Formulário" style="font-size: 14pt;" />
+			</f:facet>
+			<h:panelGrid columns="2" id="panelGrid">
+				<h:outputText value="Pagamentos" />
+				<b:selectOneMenu value="#{formaPgtoBean.formaPgto.descricao}">
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+					<f:selectItem itemValue="Cartão de Crédito"
+						itemLabel="Cartão de Crédito" />
+					<f:selectItem itemValue="Boleto" itemLabel="Boleto" />
+					<f:selectItem itemValue="Depósito Bancário"
+						itemLabel="Depósito Bancário" />
+					<f:selectItem itemValue="PaylPal" itemLabel="PaylPal" />
+				</b:selectOneMenu>
+
+				<h:outputText value="Nº Max. Parcelas" />
+				<b:inputText maxlength="3"
+					value="#{formaPgtoBean.formaPgto.num_max_parc}"
+					converterMessage="O valor do campo 'Nº Max. Parcelas' é inválido"
+					validatorMessage="Informe um valor entre 0 e 100 para o campo 'Nº Max. Parcelas'">
+					<f:validateLongRange minimum="0" maximum="100" />
+				</b:inputText>
+
+				<h:outputText value="Nº Padrão de Parcelas" />
+				<b:inputText maxlength="3"
+					value="#{formaPgtoBean.formaPgto.num_padrao_parc}"
+					converterMessage="O valor do campo 'Nº Padrão. Parcelas' é inválido"
+					validatorMessage="Informe um valor entre 0 e 100 para o campo 'Nº Padrão. Parcelas'">
+					<f:validateLongRange minimum="0" maximum="100" />
+				</b:inputText>
+
+				<h:outputText value="Intervalo (Dias)" />
+				<b:inputText maxlength="2"
+					value="#{formaPgtoBean.formaPgto.intervaloDias}"
+					converterMessage="O valor do campo 'Intevalo (Dias)' é inválido"
+					validatorMessage="Informe um valor entre 0 e 100 para o campo 'Intervalo'">
+					<f:validateLongRange minimum="0" maximum="31" />
+				</b:inputText>
+
+				<h:outputText value="Percentual %" />
+				<b:inputText value="#{formaPgtoBean.formaPgto.percentualAcres}"
+					converterMessage="O valor do campo 'Percentual' é inválido"
+					validatorMessage="Informe um valor entre 0.0 e 99.9 para o campo 'Percentual'">
+					<f:validateDoubleRange minimum="0.0" maximum="99.9" />
+				</b:inputText>
+
+			</h:panelGrid>
+
+			<div class="pull-left">
+				<b:commandButton value="Salvar" look="success"
+					update="msgs ,panel2, panel, tbl" style="margin-left: 3cm;"
+					action="#{formaPgtoBean.actionSalvar}" />
+			</div>
+		</b:panel>
+
+		<b:panel style="margin-left: 18%;" collapsible="false" id="panel2">
+			<f:facet name="heading">
+				<p:outputLabel value="Formas de Pagamentos" style="font-size: 14pt;" />
+			</f:facet>
+
+			<b:dataTable fixedHeader="true" scroll-size="400px"
+				value="#{formaPgtoBean.pagamentos}" var="pagamentos"
+				scroll-x="false" responsive="true" page-length="2"
+				page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{pagamentos.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Tipo">
+					<h:outputText value="#{pagamentos.descricao}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nº Max. Parcela">
+					<h:outputText value="#{pagamentos.num_max_parc}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Nº Padrão. Parcela">
+					<h:outputText value="#{pagamentos.num_padrao_parc}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Intervalo (Dias)">
+					<h:outputText value="#{pagamentos.intervaloDias}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Perctual %">
+					<h:outputText value="#{pagamentos.percentualAcres}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Editar">
+					<b:commandButton title="Editar" ajax="true"
+						update="@form:panel:panelGrid"
+						actionListener="#{formaPgtoBean.actionEditar}">
+						<i class="fa fa-edit"></i>
+						<f:attribute name="pagamentoSelecionado" value="#{pagamentos}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Excluir">
+					<b:commandButton styleClass="btn btn-default"
+						action="#{formaPgtoBean.actionExcluir}">
+						<i class="fa fa-trash-o"></i>
+						<f:setPropertyActionListener value="#{pagamentos}" target="#{formaPgtoBean.formaPgto}"/>
+					</b:commandButton>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+	</ui:define>
+</ui:composition>

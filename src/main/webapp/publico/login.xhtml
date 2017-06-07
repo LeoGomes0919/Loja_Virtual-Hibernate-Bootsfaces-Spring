@@ -19,6 +19,16 @@
 	background-image:
 		url("#{facesContext.externalContext.requestContextPath}/resources/img/1344899.jpg");
 }
+
+.linkLoja:HOVER {
+	text-decoration: none;
+	list-style: none;
+	color: black;
+}
+
+.linkLoja {
+	color: black;
+}
 </style>
 </h:head>
 
@@ -28,12 +38,15 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="text-center">Bem Vindo</h1>
+					<h1 class="text-center">
+						<a href="index.xhtml" class="linkLoja" title="Voltar a Loja">Clean
+							Portaria</a>
+					</h1>
 				</div>
-				<h:outputText value=" Login ou senha
+				<h:outputText value=" Usuário ou senha
 					incorretos!"
 					rendered="#{!empty param.login_error}"
-					style="text-align: left;color: red" />
+					style="text-align: left;color: blue; margin-left: 0.5cm;" />
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="text" class="form-control input-lg"
@@ -47,9 +60,10 @@
 
 					<div class="form-group">
 						<input type="submit" class="btn btn-block btn-lg btn-primary"
-							value="Login" /> <span class="pull-right"><a href="#">Cadastre-se</a></span><span><input type="checkbox"
-							checked="checked" name="_spring_security_remember_me" /> Lembrar
-							Senha</span>
+							value="Login" /> <span class="pull-right"><h:outputLink
+								value="#{pesssoaBean.novo()}">Cadastre-se</h:outputLink></span><span><input
+							type="checkbox" checked="checked"
+							name="_spring_security_remember_me" /> Lembrar Senha</span>
 					</div>
 				</div>
 			</div>

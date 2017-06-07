@@ -14,10 +14,12 @@ import javax.faces.bean.RequestScoped;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-@SuppressWarnings("serial")
 @ManagedBean
 @RequestScoped
 public class ImagenBean implements Serializable {
+
+	
+	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty("#{param.caminho}")
 	private String caminho;

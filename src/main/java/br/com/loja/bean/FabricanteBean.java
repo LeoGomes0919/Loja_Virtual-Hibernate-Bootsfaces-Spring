@@ -12,10 +12,11 @@ import org.omnifaces.util.Messages;
 import br.com.loja.dao.FabricanteDAO;
 import br.com.loja.domain.Fabricante;
 
-@SuppressWarnings("serial")
 @SessionScoped
 @ManagedBean(name = "fabricanteBean")
 public class FabricanteBean implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Fabricante fabricante = new Fabricante();
 	private FabricanteDAO fabricanteDao = new FabricanteDAO();

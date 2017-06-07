@@ -64,16 +64,41 @@
 			</b:dataTableColumn>
 		</b:dataTable>
 		<br />
-		<b:panel title="Valor Total" id="painelFinalizacao">
-			<h:outputText value="Total: "
-				style="font-size: 13pt; font-weight: bold;" />
-							&nbsp;
-							<h:outputText value="R$ #{vendaBean.venda.precoTotal}"
-				style="font-size: 13pt;">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-			</h:outputText>
+		<b:panel title="Dados da Compra" id="painelFinalizacao">
+			<h:panelGrid columns="3">
+				<h:outputText value="Total: "
+					style="font-size: 13pt; font-weight: bold; margin-left: 0.6cm;" />
 
-			<p:commandButton value="Finalizar compra" styleClass="pull-right" />
+				<h:outputText value="R$ #{vendaBean.venda.precoTotal}"
+					style="font-size: 13pt; margin-left: 0.5cm;">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				&nbsp;
+				&nbsp;
+				<h:outputLabel value="Horário:"
+					style="font-size: 13pt; font-weight: bold;" />
+
+				<h:outputText value="#{vendaBean.venda.horario}"
+					style="font-size: 13pt; margin-left: 0.5cm;">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+						timeZone="America/Sao_Paulo" locale="pt_BR" />
+				</h:outputText>
+				&nbsp;
+				&nbsp;
+				<h:outputLabel value="Nome:"
+					style="font-size: 13pt; font-weight: bold; margin-left: 0.4cm;" />
+				<h:outputText value="#{vendaBean.pessoa.nome}"
+					style="font-size: 13pt; margin-left: 0.5cm;" />
+				&nbsp;
+				&nbsp;
+				<h:outputLabel value="Endereço:"
+					style="font-size: 13pt; font-weight: bold; margin-left: -0.4cm;" />
+				<h:outputText value="#{vendaBean.pessoa.bairro} #{vendaBean.pessoa.rua}"
+					style="font-size: 13pt; margin-left: 0.5cm;" />
+
+			</h:panelGrid>
+			<b:commandButton value="Finalizar compra" styleClass="pull-right"
+				look="primary" />
 		</b:panel>
 	</h:form>
 </h:body>

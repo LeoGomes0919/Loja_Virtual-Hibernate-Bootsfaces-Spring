@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
@@ -13,22 +13,15 @@ import org.omnifaces.util.Messages;
 import br.com.loja.dao.CategoriaDAO;
 import br.com.loja.domain.Categoria;
 
-@SuppressWarnings("serial")
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "categoriaBean")
 public class CategoriaBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Categoria categoria = new Categoria();
 	private CategoriaDAO categoriaDao = new CategoriaDAO();
 	private List<Categoria> categorias;
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
-	}
 
 	@PostConstruct
 	public void listar() {
@@ -92,5 +85,13 @@ public class CategoriaBean implements Serializable {
 
 	public void setCategoriaDao(CategoriaDAO categoriaDao) {
 		this.categoriaDao = categoriaDao;
+	}
+	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 }

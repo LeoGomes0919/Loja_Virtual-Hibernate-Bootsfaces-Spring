@@ -37,6 +37,7 @@
 		<mapping class="br.com.loja.domain.Cidade" />
 		<mapping class="br.com.loja.domain.Estado" />
 		<mapping class="br.com.loja.domain.Fabricante" />
+		<mapping class="br.com.loja.domain.FormaPgto" />
 		<mapping class="br.com.loja.domain.ItemVenda" />
 		<mapping class="br.com.loja.domain.Pessoa" />
 		<mapping class="br.com.loja.domain.Produto" />

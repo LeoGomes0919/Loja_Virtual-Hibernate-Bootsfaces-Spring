@@ -29,7 +29,7 @@ public class Pessoa extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
-
+	
 	//Dados de login
 	@Column(length = 40, nullable = false)
 	private String email;

@@ -67,7 +67,7 @@ public class GenericDAO<Entidade> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Entidade buscar(Long cpf) {
+	public Entidade buscar(String cpf) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(classe);

@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
@@ -24,18 +24,20 @@ import br.com.loja.domain.Categoria;
 import br.com.loja.domain.Fabricante;
 import br.com.loja.domain.Produto;
 
-@SuppressWarnings("serial")
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "produtoBean")
 public class ProdutoBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private Produto produto = new Produto();
 	private ProdutoDAO produtoDao = new ProdutoDAO();
+	
+	private Fabricante fabricante = new Fabricante();
+	
 	private List<Produto> produtos;
 	private List<Categoria> categorias;
 	private List<Fabricante> fabricantes;
-	private Categoria categoria = new Categoria();
-	private Fabricante fabricante = new Fabricante();
 
 	public void actionSalvar() {
 		try {
@@ -43,7 +45,7 @@ public class ProdutoBean implements Serializable {
 				Messages.addGlobalError("Campo foto é obrigatório");
 				return;
 			}
-			
+
 			Produto produtoRetorno = produtoDao.merge(produto);
 			Path origem = Paths.get(produto.getCaminho());
 			Path destino = Paths
@@ -63,8 +65,9 @@ public class ProdutoBean implements Serializable {
 	public void actionEditar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			produto.setCaminho("C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/"
-					+ produto.getId() + ".png");
+			produto.setCaminho(
+					"C:/Users/leogo/Dropbox/GTI-V/Progrmação com Framwork/Loja_Virtual/Loja_Virtual/src/main/webapp/resources/uploads/"
+							+ produto.getId() + ".png");
 
 			FabricanteDAO fab = new FabricanteDAO();
 			fabricantes = fab.listar("nome");
@@ -81,11 +84,13 @@ public class ProdutoBean implements Serializable {
 	public void listar() {
 		try {
 			produtos = produtoDao.listar();
+			CategoriaDAO categoriaDAO = new CategoriaDAO();
+			categorias = categoriaDAO.listar("nome");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar os produtos");
 		}
 	}
-
+	
 	public void actionInserir() {
 		produto = new Produto();
 	}
@@ -157,14 +162,6 @@ public class ProdutoBean implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public Fabricante getFabricante() {

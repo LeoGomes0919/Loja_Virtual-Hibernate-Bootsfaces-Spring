@@ -1,7 +1,10 @@
 package br.com.loja.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @SuppressWarnings("serial")
 @Entity
@@ -27,4 +30,16 @@ public class Categoria extends GenericDomain {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	@OneToMany(mappedBy = "categoria")
+	private List<Produto> produtos;
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
 }

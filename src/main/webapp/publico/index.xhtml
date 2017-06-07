@@ -24,11 +24,23 @@
 	border: none !important;
 	border-style: none !important;
 }
+
+.jumbotron .btn:focus {
+	outline: thin dotted;
+	outline: 0px auto -webkit-focus-ring-color;
+	outline-offset: 0px;
+}
+
+.jumbotron:focus {
+	outline: thin dotted;
+	outline: 0px auto -webkit-focus-ring-color;
+	outline-offset: 0px;
+}
 </style>
 </h:head>
 <h:body>
 	<ui:insert>
-		<ui:include src="/template/menu.xhtml"/>
+		<ui:include src="/template/menu.xhtml" />
 	</ui:insert>
 	<br />
 	<h:form id="form1">
@@ -40,11 +52,9 @@
 						<a href="#"> <p:graphicImage library="img" name="logo1.png" />
 						</a>
 					</p>
+					
 					<div class="list-group">
-						<h:commandLink styleClass="list-group-item" value="Prédios" />
-						<h:commandLink styleClass="list-group-item" value="Condomínios" />
-						<h:commandLink styleClass="list-group-item" value="Residências" />
-						<h:commandLink styleClass="list-group-item" value="Empresas" />
+						<!-- Nome do Ususario -->
 					</div>
 				</div>
 
@@ -94,7 +104,8 @@
 
 					<!-- Tabela de Produtos -->
 					<p:dataGrid columns="3" rows="3" value="#{vendaBean.produtos}"
-						var="produto" styleClass="teste" layout="grid">
+						var="produto" styleClass="teste" layout="grid" emptyMessage="Nenhum produto encontrado"
+						converter="omnifaces.SelectItemsConverter">
 						<b:panel>
 							<b:image value="/resources/uploads/#{produto.id}.png" width="245" />
 							<p:separator />

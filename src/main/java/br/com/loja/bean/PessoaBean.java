@@ -17,11 +17,12 @@ import br.com.loja.domain.Cidade;
 import br.com.loja.domain.Estado;
 import br.com.loja.domain.Pessoa;
 
-@SuppressWarnings("serial")
 @ManagedBean(name = "pesssoaBean")
 @SessionScoped
 public class PessoaBean implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
 	// Objetos
 	private Pessoa pessoa;
 	private Estado estado;
@@ -55,7 +56,7 @@ public class PessoaBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
 		}
-		return "/publico/form_pessoa?faces-redirect=true";
+		return "form_pessoa.xhtml?faces-redirect=true";
 	}
 	
 	public void actionExcluir(){
@@ -68,13 +69,14 @@ public class PessoaBean implements Serializable {
 	}
 
 	public String fazerlogin() {
-		return "index?faces-redirect=true";
+		pessoaDAO.listar();
+		return "/publico/login";
 	}
 
 	public String actionSalvar() {
 		try {
 			pessoaDAO.merge(pessoa);
-
+			pessoaDAO.listar();
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao efetuar seu cadastro");
 			e.printStackTrace();

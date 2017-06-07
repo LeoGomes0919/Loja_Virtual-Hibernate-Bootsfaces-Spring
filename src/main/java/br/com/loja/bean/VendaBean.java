@@ -3,6 +3,7 @@ package br.com.loja.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,24 +12,31 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.loja.dao.PessoaDAO;
 import br.com.loja.dao.ProdutoDAO;
 import br.com.loja.domain.ItemVenda;
+import br.com.loja.domain.Pessoa;
 import br.com.loja.domain.Produto;
 import br.com.loja.domain.Venda;
 
-@SuppressWarnings("serial")
 @ManagedBean
 @SessionScoped
 public class VendaBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
 	private Produto produto = new Produto();
+
 	private Venda venda;
 	private int totalCarrinho;
+	private String logado;
+	private Pessoa pessoa;
 
 	@PostConstruct
 	public void novo() {
@@ -103,6 +111,27 @@ public class VendaBean implements Serializable {
 		}
 	}
 
+	// Acessar carrinho
+	public String finalizar() {
+		try {
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			venda.setHorario(new Date());
+			logado = SecurityContextHolder.getContext().getAuthentication().getName();
+			pessoa = pessoaDAO.retornaUsuario(logado);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+		return "/publico/carrinho?faces-redirect=true";
+	}
+
+	public String getLogado() {
+		return logado;
+	}
+
+	public void setLogado(String logado) {
+		this.logado = logado;
+	}
+
 	public ProdutoDAO getProdutoDAO() {
 		return produtoDAO;
 	}
@@ -151,4 +180,11 @@ public class VendaBean implements Serializable {
 		this.totalCarrinho = totalCarrinho;
 	}
 
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 }
