@@ -32,9 +32,9 @@ public class ProdutoBean implements Serializable {
 
 	private Produto produto = new Produto();
 	private ProdutoDAO produtoDao = new ProdutoDAO();
-	
+
 	private Fabricante fabricante = new Fabricante();
-	
+
 	private List<Produto> produtos;
 	private List<Categoria> categorias;
 	private List<Fabricante> fabricantes;
@@ -90,7 +90,12 @@ public class ProdutoBean implements Serializable {
 			Messages.addGlobalError("Erro ao tentar listar os produtos");
 		}
 	}
-	
+
+	public String voltarIndex() {
+		produtos = produtoDao.listar();
+		return "/publico/index.xhtml?faces-redirect=true";
+	}
+
 	public void actionInserir() {
 		produto = new Produto();
 	}

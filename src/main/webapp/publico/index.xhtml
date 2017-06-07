@@ -103,11 +103,11 @@
 					</div>
 
 					<!-- Tabela de Produtos -->
-					<p:dataGrid columns="3" rows="3" value="#{vendaBean.produtos}"
+					<p:dataGrid columns="3" rows="6" value="#{vendaBean.produtos}"
 						var="produto" styleClass="teste" layout="grid" emptyMessage="Nenhum produto encontrado"
 						converter="omnifaces.SelectItemsConverter">
 						<b:panel>
-							<b:image value="/resources/uploads/#{produto.id}.png" width="245" />
+							<b:image value="/resources/uploads/#{produto.id}.png" style="width: 250px; height: 150px;"/>
 							<p:separator />
 							<p>
 								<h:outputText value="#{produto.nome}"

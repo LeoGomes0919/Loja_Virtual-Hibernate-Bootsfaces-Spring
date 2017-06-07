@@ -26,12 +26,13 @@
 				<div class="row row1">
 					<ul class="largenav pull-right">
 
-						<li class="upper-links"><i class="fa fa-key fa-sm"/> &nbsp; <h:commandLink
-								styleClass="links" style="font-size: 11pt;" value="Fazer login"
-								action="#{pesssoaBean.fazerlogin}" id="link_login" /></li>
-						<li class="upper-links"><i class="fa fa-wpforms"/> &nbsp; <h:commandLink styleClass="links"
-								style="font-size: 11pt; " value="Faça seu Cadastro"
-								action="#{pesssoaBean.novo}" /></li>
+						<li class="upper-links"><i class="fa fa-key fa-sm" /> &nbsp;
+							<h:commandLink styleClass="links" style="font-size: 11pt;"
+								value="Fazer login" action="#{pesssoaBean.fazerlogin}"
+								id="link_login" /></li>
+						<li class="upper-links"><i class="fa fa-wpforms" /> &nbsp; <h:commandLink
+								styleClass="links" style="font-size: 11pt; "
+								value="Faça seu Cadastro" action="#{pesssoaBean.novo}" /></li>
 
 					</ul>
 				</div>
@@ -71,9 +72,9 @@
 							</span>
 						</h:commandLink>
 						<p:overlayPanel id="moviePanel" for="carrinhoBotao"
-							hideEffect="fade" style="width:350px" showEvent="mouseover"
+							hideEffect="fade" style="width:450px" showEvent="mouseover"
 							hideEvent="mousedown">
-							<p:dataGrid rows="3" columns="3" paginator="false"
+							<p:dataGrid rows="6" columns="4" paginator="false"
 								value="#{vendaBean.itensVenda}" var="itemVenda" id="dataCar"
 								emptyMessage="Meu Carrinho" styleClass="teste" layout="grid">
 								<h:panelGrid columns="1">
@@ -89,14 +90,14 @@
 									<h:outputText value="#{itemVenda.quantidade}" />
 
 								</h:panelGrid>
-								<p:separator />
-								<h:panelGrid columns="1">
+							</p:dataGrid>
+							<p:separator />
+								<div align="center">
 									<b:commandButton value="Comprar" look="success"
-										action="#{vendaBean.finalizar}">
+										action="#{vendaBean.finalizar}" style="width: 100%;">
 										<i class="fa fa-shopping-cart" aria-hidden="true">.:</i>
 									</b:commandButton>
-								</h:panelGrid>
-							</p:dataGrid>
+								</div>
 						</p:overlayPanel>
 					</div>
 				</div>

@@ -121,9 +121,9 @@ public class VendaBean implements Serializable {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
-		return "/publico/carrinho?faces-redirect=true";
+		return "/teste.xhtml?faces-redirect=true";
 	}
-
+	
 	public String getLogado() {
 		return logado;
 	}

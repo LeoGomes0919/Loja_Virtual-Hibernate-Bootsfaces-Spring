@@ -21,6 +21,7 @@
 	<h:outputScript library="js" name="bootstrap.js" />
 	<h:outputStylesheet library="css" name="navbar.css" />
 	<h:outputScript library="js" name="navbar.js" />
+	<h:outputStylesheet library="css" name="estilo.css"/>
 </h:head>
 
 <h:body>
@@ -93,12 +94,17 @@
 				&nbsp;
 				<h:outputLabel value="Endereço:"
 					style="font-size: 13pt; font-weight: bold; margin-left: -0.4cm;" />
-				<h:outputText value="#{vendaBean.pessoa.bairro} #{vendaBean.pessoa.rua}"
+				<h:outputText
+					value="#{vendaBean.pessoa.cidade.nome} - #{vendaBean.pessoa.cidade.estado.sigla} / #{vendaBean.pessoa.bairro} #{vendaBean.pessoa.rua} - #{vendaBean.pessoa.numero}"
 					style="font-size: 13pt; margin-left: 0.5cm;" />
 
 			</h:panelGrid>
+			<p:separator/>
 			<b:commandButton value="Finalizar compra" styleClass="pull-right"
-				look="primary" />
+				look="success" />
+				
+			<b:commandButton value="Continuar Comprando" styleClass="right"
+				look="primary" action="index.xhtml"/>
 		</b:panel>
 	</h:form>
 </h:body>

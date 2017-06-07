@@ -4,14 +4,141 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://omnifaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="Loja Virtual" />
+	<meta name="author" content="Leonardo Gomes" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="shop-homepage.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputStylesheet library="css" name="navbar.css" />
+	<h:outputScript library="js" name="navbar.js" />
+
+	<title>Meu Carrinho | Loja Virtual</title>
+</h:head>
 <h:body>
 	<h:form>
-		<h:selectManyListbox>
-			<f:selectItems value="#{produtoBean.categorias}" var="c"
-				itemLabel="#{c.nome}" itemValue="#{c}" />
-		</h:selectManyListbox>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-10 col-md-offset-1">
+					<h:dataTable value="#{vendaBean.itensVenda}" var="itemVenda"
+						styleClass="table table-hover">
+						<h:column>
+							<f:facet name="header">
+								<p:outputLabel value="Serviço(s)" />
+							</f:facet>
+							<div class="col-sm-8 col-md-6">
+								<div class="media">
+									<a class="thumbnail pull-left" href="#"> <b:image
+											styleClass="media-object"
+											value="/resources/uploads/#{itemVenda.produto.id}.png"
+											style="width: 75px; height: 85px;" /></a>
+									<div class="media-body" style="margin-left: 0.5cm;">
+										<h4 class="media-heading">
+											<h:outputText value="#{itemVenda.produto.nome}" />
+										</h4>
+										<h5 class="media-heading" style="font-size: 10pt;">
+											Empresa <a href="#">Clean Portaria</a>
+										</h5>
+										<span style="font-size: 10pt;">Categoria: </span><span
+											class="text-success"> <strong style="font-size: 10pt;">
+												#{itemVenda.produto.categoria.nome} </strong></span>
+									</div>
+								</div>
+							</div>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<p:outputLabel value="Quantidade" style="margin-right: 1.4cm;" />
+							</f:facet>
+							<div class="col-sm-1 col-md-1">
+								<strong><h:outputText value="#{itemVenda.quantidade}" /></strong>
+							</div>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<p:outputLabel value="Preço" styleClass="text-center"
+									style="margin-left: -0.5cm;" />
+							</f:facet>
+							<div class="col-sm-1 col-md-1" style="margin-left: -0.8cm;">
+								<strong><h:outputText
+										value="R$#{itemVenda.produto.preco}" /></strong>
+							</div>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<p:outputLabel value="Total" styleClass="text-center"
+									style="margin-left: 0.3cm;" />
+							</f:facet>
+							<div class="col-sm-1 col-md-1 text-center">
+								<strong><h:outputText
+										value="R$#{itemVenda.precoParcial}"
+										style="margin-right: -0.7cm;" /></strong>
+							</div>
+						</h:column>
+
+						<h:column>
+							<div class="col-sm-1 col-md-1">
+								<h:commandButton value="remover"
+									actionListener="#{vendaBean.remover}"
+									styleClass="btn btn-danger">
+
+									<f:attribute name="itemSelecionado" value="#{itemVenda}" />
+								</h:commandButton>
+							</div>
+						</h:column>
+					</h:dataTable>
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td><h5 class="text-right">SubTotal</h5></td>
+								<td class="text-right"><h5>
+										<strong>$24.59</strong>
+									</h5></td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td class="text-right"><h3 style="margin-left: 11cm;">Total</h3></td>
+								<td class="text-right"><h3>
+										<strong>$31.53</strong>
+									</h3></td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td> </td>
+								<td> </td>
+								<td>
+									<button type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										Continuar Comprando
+									</button>
+								</td>
+								<td>
+									<button type="button" class="btn btn-success">
+										Finalizar Compra <span class="glyphicon glyphicon-play"></span>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</h:form>
 </h:body>
 </html>
