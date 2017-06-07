@@ -76,7 +76,7 @@ public class VendaBean implements Serializable {
 			if (venda.getPrecoTotal().signum() == 0) {
 				Messages.addGlobalInfo("Você precisa escolher um serviço para efetuar a compra");
 			}
-			
+			venda.setPessoa(pessoa);
 			VendaDAO vendaDAO = new VendaDAO();
 			vendaDAO.salvar(venda, itensVenda);
 			novo();
