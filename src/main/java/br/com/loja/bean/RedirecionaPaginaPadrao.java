@@ -18,8 +18,10 @@ public class RedirecionaPaginaPadrao implements AuthenticationSuccessHandler {
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		if (roles.contains("ROLE_A")) {
 			response.sendRedirect("/Loja_Virtual/admin/principal.xhtml");
+			
 		} else if (roles.contains("ROLE_C")) {
 			response.sendRedirect("/Loja_Virtual/publico/index.xhtml");
-		}
+			
+		} 
 	}
 }

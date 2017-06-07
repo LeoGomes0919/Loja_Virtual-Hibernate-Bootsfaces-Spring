@@ -66,7 +66,7 @@
 
 			<div class="pull-left">
 				<b:commandButton value="Salvar" look="success"
-					update="msgs ,panel2, panel, tbl" style="margin-left: 3cm;"
+					update="msgs ,panel2, tbl, panel, panelGrid" style="margin-left: 3cm;"
 					action="#{formaPgtoBean.actionSalvar}" />
 			</div>
 		</b:panel>
@@ -77,34 +77,34 @@
 			</f:facet>
 
 			<b:dataTable fixedHeader="true" scroll-size="400px"
-				value="#{formaPgtoBean.pagamentos}" var="pagamentos"
+				value="#{formaPgtoBean.pagamentos}" var="pg"
 				scroll-x="false" responsive="true" page-length="2"
 				page-length-menu="2,5,10,15,20"
 				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
 				id="tbl">
 
 				<b:dataTableColumn label="ID">
-					<h:outputText value="#{pagamentos.id}" />
+					<h:outputText value="#{pg.id}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Tipo">
-					<h:outputText value="#{pagamentos.descricao}" />
+					<h:outputText value="#{pg.descricao}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Nº Max. Parcela">
-					<h:outputText value="#{pagamentos.num_max_parc}" />
+					<h:outputText value="#{pg.num_max_parc}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Nº Padrão. Parcela">
-					<h:outputText value="#{pagamentos.num_padrao_parc}" />
+					<h:outputText value="#{pg.num_padrao_parc}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Intervalo (Dias)">
-					<h:outputText value="#{pagamentos.intervaloDias}" />
+					<h:outputText value="#{pg.intervaloDias}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Perctual %">
-					<h:outputText value="#{pagamentos.percentualAcres}" />
+					<h:outputText value="#{pg.percentualAcres}" />
 				</b:dataTableColumn>
 
 				<b:dataTableColumn label="Editar">
@@ -112,7 +112,7 @@
 						update="@form:panel:panelGrid"
 						actionListener="#{formaPgtoBean.actionEditar}">
 						<i class="fa fa-edit"></i>
-						<f:attribute name="pagamentoSelecionado" value="#{pagamentos}" />
+						<f:attribute name="pagamentoSelecionado" value="#{pg}" />
 					</b:commandButton>
 				</b:dataTableColumn>
 
@@ -120,7 +120,7 @@
 					<b:commandButton styleClass="btn btn-default"
 						action="#{formaPgtoBean.actionExcluir}">
 						<i class="fa fa-trash-o"></i>
-						<f:setPropertyActionListener value="#{pagamentos}" target="#{formaPgtoBean.formaPgto}"/>
+						<f:setPropertyActionListener value="#{pg}" target="#{formaPgtoBean.formaPgto}"/>
 					</b:commandButton>
 				</b:dataTableColumn>
 			</b:dataTable>

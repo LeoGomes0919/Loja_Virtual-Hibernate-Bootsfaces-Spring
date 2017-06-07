@@ -45,6 +45,7 @@ public class FormaPgtoBean implements Serializable {
 		try {
 			formaPgtoDAO.merge(formaPgto);
 			formaPgto = new FormaPgto();
+			pagamentos = formaPgtoDAO.listar();
 			Messages.addGlobalInfo("Salvo com sucesso");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Algo deu errado ao salvar essa forma de pagamento");

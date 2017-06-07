@@ -59,16 +59,12 @@
 <h:body>
 	<div class="flex-container">
 		<div class="nav-side-menu">
-			<div class="brand">Área Administrativa</div>
-			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+			<div class="brand"><i class="fa fa-tachometer fa-2x"></i> Área Administrativa</div>
+			<i class="fa fa-tachometer fa-lg toggle-btn" data-toggle="collapse"
 				data-target="#menu-content"></i>
 
 			<h:form>
 				<div class="menu-list">
-
-					<ul id="menu-content" class="menu-content collapse out">
-						<li><i class="fa fa-shopping-cart fa-lg"></i>&nbsp;
-						<h:commandLink value="Loja" action="#{produtoBean.voltarIndex}" /></li>
 
 						<li data-toggle="collapse" data-target="#fabrica"><i
 							class="fa fa-truck fa-lg"></i>&nbsp; <h:commandLink
@@ -80,12 +76,23 @@
 
 						<li data-toggle="collapse" data-target="#products"><i
 							class="fa fa-gift fa-lg"></i>&nbsp; <h:commandLink
-								value="Produtos" /><span class="arrow"></span></li>
+								value="Serviços" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="products">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
 									value="Lista e Cadastro" action="/admin/produtos.xhtml" /></li>
 							<li><i class="fa fa-money"></i>&nbsp; <h:commandLink
 									action="/admin/formaPgto.xhtml" value="Pagamentos" /></li>
+						</ul>
+
+
+						<li data-toggle="collapse" data-target="#venda"><i
+							class="fa fa-cart-arrow-down fa-lg"></i>&nbsp; <h:commandLink value="Vendas" /><span
+							class="arrow"></span></li>
+						<ul class="sub-menu collapse" id="venda">
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Lista de Vendas" action="vendas.xhtml" /></li>
+							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
+									value="Itens da Venda" action="#{vendaBean.itensDaVenda}" /></li>
 						</ul>
 
 						<li data-toggle="collapse" data-target="#categoria"><i
@@ -101,9 +108,7 @@
 								value="Pessoas" /><span class="arrow"></span></li>
 						<ul class="sub-menu collapse" id="cliente">
 							<li><i class="fa fa-book"></i>&nbsp;<h:commandLink
-									value="Lista de Pessoas" /></li>
-							<li><i class="fa fa-users"></i>&nbsp;<h:commandLink
-									value="Lista de Usuários" /></li>
+									value="Lista de Pessoas" action="pessoa.xhtml" /></li>
 						</ul>
 
 						<li><i class="glyphicon glyphicon-log-out"></i>&nbsp; <h:outputLink

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context reloadable="true">
-	<Resource 	name="jdbc/lojaVirtual" 
+	<Resource 	name="jdbc/PILoja" 
 			auth="Container" 
 			type="javax.sql.DataSource"
 			maxActive="100" 
@@ -9,6 +9,6 @@
 			username="postgres" 
 			password="12345" 
 			driverClassName="org.postgresql.Driver"
-			url="jdbc:postgresql://localhost:5432/lojaVirtual?autoReconnect=true"/>
+			url="jdbc:postgresql://localhost:5432/PILoja?autoReconnect=true"/>
 </Context>
 

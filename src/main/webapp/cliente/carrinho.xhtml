@@ -5,7 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://omnifaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
@@ -24,12 +24,13 @@
 	<title>Meu Carrinho | Loja Virtual</title>
 </h:head>
 <h:body>
-	<h:form>
+	<p:growl id="msgs" />
+	<h:form id="formulario">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 col-md-10 col-md-offset-1">
 					<h:dataTable value="#{vendaBean.itensVenda}" var="itemVenda"
-						styleClass="table table-hover">
+						styleClass="table table-hover" id="tblProduto">
 						<h:column>
 							<f:facet name="header">
 								<p:outputLabel value="Serviço(s)" />
@@ -77,7 +78,7 @@
 
 						<h:column>
 							<f:facet name="header">
-								<p:outputLabel value="Total" styleClass="text-center"
+								<p:outputLabel value="Preço Parcial" styleClass="text-center"
 									style="margin-left: 0.3cm;" />
 							</f:facet>
 							<div class="col-sm-1 col-md-1 text-center">
@@ -104,41 +105,88 @@
 								<td> </td>
 								<td> </td>
 								<td> </td>
-								<td><h5 class="text-right">SubTotal</h5></td>
-								<td class="text-right"><h5>
-										<strong>$24.59</strong>
-									</h5></td>
-							</tr>
-							<tr>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-								<td class="text-right"><h3 style="margin-left: 11cm;">Total</h3></td>
+								<td class="text-right"><h3>Total</h3></td>
 								<td class="text-right"><h3>
-										<strong>$31.53</strong>
+										<strong><h:outputText
+												value="R$ #{vendaBean.venda.precoTotal}">
+												<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+											</h:outputText></strong>
 									</h3></td>
 							</tr>
 							<tr>
 								<td> </td>
 								<td> </td>
 								<td> </td>
-								<td>
-									<button type="button" class="btn btn-default">
+								<td><b:commandButton type="button" class="btn btn-default"
+										style="margin-left: 10cm;" action="index.xhtml?faces-redirect=true">
 										<span class="glyphicon glyphicon-shopping-cart"></span>
 										Continuar Comprando
-									</button>
-								</td>
-								<td>
-									<button type="button" class="btn btn-success">
-										Finalizar Compra <span class="glyphicon glyphicon-play"></span>
-									</button>
-								</td>
+									</b:commandButton></td>
+								<td><p:commandButton value="Finalizar"
+										update=":msgs :formDialogo:panelDialogo"
+										oncomplete="PF('dialogo').show();" class="btn btn-success"
+										icon="fa fa-play"
+										style="font-weight: normal !important;  font-style: normal !important;">
+										<f:actionListener
+											type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+									</p:commandButton></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+	</h:form>
+	<h:form id="formDialogo">
+		<p:dialog modal="true" hideEffect="fade" showEffect="fade"
+			header="Finalizar Comprar" resizable="false" draggable="false"
+			widgetVar="dialogo">
+			<h:panelGrid columns="2" id="panelDialogo">
+				<h:outputLabel value="Horário:"
+					style="font-size: 13pt; font-weight: bold;" />
+				<h:outputText value="#{vendaBean.venda.horario}"
+					style="margin-left: 0.2cm;">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+						timeZone="America/Sao_Paulo" locale="pt_BR" />
+				</h:outputText>
+
+				<h:outputLabel value="Nome:"
+					style="font-size: 13pt; font-weight: bold;" />
+				<h:outputText value="#{vendaBean.pessoa.nome}"
+					style="font-size: 13pt; margin-left: 0.2cm;" />
+
+				<h:outputLabel value="Endereço:"
+					style="font-size: 13pt; font-weight: bold;" />
+				<h:outputText
+					value="#{vendaBean.pessoa.cidade.nome} - #{vendaBean.pessoa.cidade.estado.sigla} / #{vendaBean.pessoa.bairro} #{vendaBean.pessoa.rua} - #{vendaBean.pessoa.numero}"
+					style="font-size: 13pt; margin-left: 0.2cm;" />
+
+				<h:outputLabel value="Total:"
+					style="font-size: 13pt; font-weight: bold;" />
+				<h:outputText value="R$ #{vendaBean.venda.precoTotal}"
+					style="font-size: 13pt; margin-left: 0.2cm;">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+
+				<h:outputLabel value="Pagamento:"
+					style="font-size: 13pt; font-weight: bold;" />
+				<h:selectOneMenu value="#{vendaBean.venda.formaPgto}"
+					converter="omnifaces.SelectItemsConverter"
+					style="margin-left: 0.2cm;" required="true"
+					requiredMessage="Forneça a forma de pagamento">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+					<f:selectItems value="#{vendaBean.pagamentos}" var="pg"
+						itemLabel="#{pg.descricao}" itemValue="#{pg}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			<div class="pull-right">
+				<h:commandButton value="Comprar" styleClass="btn btn-success"
+					update=":msgs :formulario:tblProduto" action="#{vendaBean.salvar}" ajax="true"/>
+				&nbsp;
+				<b:commandButton value="Cancelar" styleClass="btn btn-warning"
+					ajax="true" />
+			</div>
+		</p:dialog>
 	</h:form>
 </h:body>
 </html>

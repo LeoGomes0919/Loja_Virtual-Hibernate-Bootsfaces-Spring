@@ -14,8 +14,12 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import br.com.loja.dao.FormaPgtoDAO;
+import br.com.loja.dao.ItemVendaDAO;
 import br.com.loja.dao.PessoaDAO;
 import br.com.loja.dao.ProdutoDAO;
+import br.com.loja.dao.VendaDAO;
+import br.com.loja.domain.FormaPgto;
 import br.com.loja.domain.ItemVenda;
 import br.com.loja.domain.Pessoa;
 import br.com.loja.domain.Produto;
@@ -29,7 +33,9 @@ public class VendaBean implements Serializable {
 
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
-
+	private List<FormaPgto> pagamentos;
+	private List<Venda> vendas;
+	
 	private ProdutoDAO produtoDAO = new ProdutoDAO();
 	private Produto produto = new Produto();
 
@@ -46,9 +52,37 @@ public class VendaBean implements Serializable {
 
 			produtos = produtoDAO.listar();
 
-			// itensVenda = new ArrayList<>();
+			itensVenda = new ArrayList<>();
+			VendaDAO vendaDAO = new VendaDAO();
+			vendas = vendaDAO.listar();
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao tentar listar os produtos");
+			e.printStackTrace();
+		}
+	}
+
+	public String itensDaVenda(){
+		try {
+			ItemVendaDAO itemVendaDAO = new ItemVendaDAO();
+			itensVenda =  itemVendaDAO.listar();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		}
+		return "itensVenda?faces-redirect=true";
+	}
+	
+	public void salvar() {
+		try {
+			if (venda.getPrecoTotal().signum() == 0) {
+				Messages.addGlobalInfo("Você precisa escolher um serviço para efetuar a compra");
+			}
+			
+			VendaDAO vendaDAO = new VendaDAO();
+			vendaDAO.salvar(venda, itensVenda);
+			novo();
+			Messages.addGlobalInfo("Compra efetuada com sucesso");
+		} catch (RuntimeException e) {
+			Messages.addGlobalError("Desculpe sua compra não pode ser efetuada");
 			e.printStackTrace();
 		}
 	}
@@ -115,15 +149,17 @@ public class VendaBean implements Serializable {
 	public String finalizar() {
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
+			FormaPgtoDAO formaPgtoDAO = new FormaPgtoDAO();
 			venda.setHorario(new Date());
 			logado = SecurityContextHolder.getContext().getAuthentication().getName();
 			pessoa = pessoaDAO.retornaUsuario(logado);
+			pagamentos = formaPgtoDAO.listar();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
-		return "/teste.xhtml?faces-redirect=true";
+		return "/cliente/carrinho.xhtml?faces-redirect=true";
 	}
-	
+
 	public String getLogado() {
 		return logado;
 	}
@@ -183,8 +219,23 @@ public class VendaBean implements Serializable {
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
+	
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public List<FormaPgto> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<FormaPgto> pagamentos) {
+		this.pagamentos = pagamentos;
 	}
 }

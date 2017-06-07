@@ -26,14 +26,13 @@
 				<div class="row row1">
 					<ul class="largenav pull-right">
 
-						<li class="upper-links"><i class="fa fa-key fa-sm" /> &nbsp;
-							<h:commandLink styleClass="links" style="font-size: 11pt;"
-								value="Fazer login" action="#{pesssoaBean.fazerlogin}"
-								id="link_login" /></li>
 						<li class="upper-links"><i class="fa fa-wpforms" /> &nbsp; <h:commandLink
 								styleClass="links" style="font-size: 11pt; "
 								value="Faça seu Cadastro" action="#{pesssoaBean.novo}" /></li>
-
+						<li class="upper-links"><i class="fa fa-cogs fa-sm" /> &nbsp;
+							<h:commandLink styleClass="links" style="font-size: 11pt;"
+								value="Área Administrativa" action="#{pesssoaBean.fazerlogin}"
+								id="link_login" /></li>
 					</ul>
 				</div>
 				<div class="row row2">
@@ -92,12 +91,12 @@
 								</h:panelGrid>
 							</p:dataGrid>
 							<p:separator />
-								<div align="center">
-									<b:commandButton value="Comprar" look="success"
-										action="#{vendaBean.finalizar}" style="width: 100%;">
-										<i class="fa fa-shopping-cart" aria-hidden="true">.:</i>
-									</b:commandButton>
-								</div>
+							<div align="center">
+								<b:commandButton value="Comprar" look="success"
+									action="#{vendaBean.finalizar}" style="width: 100%;">
+									<i class="fa fa-shopping-cart" aria-hidden="true">.:</i>
+								</b:commandButton>
+							</div>
 						</p:overlayPanel>
 					</div>
 				</div>

@@ -91,11 +91,6 @@ public class ProdutoBean implements Serializable {
 		}
 	}
 
-	public String voltarIndex() {
-		produtos = produtoDao.listar();
-		return "/publico/index.xhtml?faces-redirect=true";
-	}
-
 	public void actionInserir() {
 		produto = new Produto();
 	}

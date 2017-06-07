@@ -18,6 +18,17 @@ public class Venda extends GenericDomain{
 	
 	@ManyToOne
 	private Pessoa pessoa;
+	
+	@ManyToOne
+	private FormaPgto formaPgto;
+
+	public FormaPgto getFormaPgto() {
+		return formaPgto;
+	}
+
+	public void setFormaPgto(FormaPgto formaPgto) {
+		this.formaPgto = formaPgto;
+	}
 
 	public Date getHorario() {
 		return horario;

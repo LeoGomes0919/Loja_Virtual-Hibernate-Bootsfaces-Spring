@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="dashboard.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="centro">
+		<h:head>
+			<title>Itens da Venda | Administrativo</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+		</h:head>
+
+		<b:panel style="margin-left: 18%;" collapsible="false">
+			<f:facet name="heading">
+				<p:outputLabel value="Itens da Venda" style="font-size: 14pt;" />
+			</f:facet>
+			<b:dataTable fixedHeader="true" scroll-size="400px"
+				value="#{vendaBean.itensVenda}" var="ItemV" scroll-x="false"
+				responsive="true" page-length="2" page-length-menu="2,5,10,15,20"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+				id="tbl">
+
+				<b:dataTableColumn label="ID">
+					<h:outputText value="#{ItemV.id}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Preço Parcial">
+					<h:outputText value="#{ItemV.precoParcial}">
+						<f:convertNumber locale="pt_BR" />
+					</h:outputText>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Quantidade">
+					<h:outputText value="#{ItemV.quantidade}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Serviço(s)">
+					<h:outputText value="#{ItemV.produto.nome}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn label="Horário">
+					<h:outputText value="#{ItemV.venda.horario}" >
+						<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo" pattern="dd/MM/yyy HH:ss"/>
+					</h:outputText>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</b:panel>
+	</ui:define>
+</ui:composition>

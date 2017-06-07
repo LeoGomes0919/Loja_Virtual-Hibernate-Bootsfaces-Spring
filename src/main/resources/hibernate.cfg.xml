@@ -9,7 +9,7 @@
 
 		<!-- Configurações de conexão com o BD -->
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property  name="connection.datasource">java:/comp/env/jdbc/lojaVirtual</property> 
+		<property  name="connection.datasource">java:/comp/env/jdbc/PILoja</property> 
 
 		<!-- Usando as configurações do C3P0 para pool de conexões -->
 		<property name="c3po.min_size">5</property>
